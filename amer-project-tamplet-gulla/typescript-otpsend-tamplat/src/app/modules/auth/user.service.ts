@@ -87,14 +87,14 @@ export const sendEmailVerification = async (email: string) => {
 
 
 
-export const codeVerification = async (email: string, code: number) => {
+export const codeVerification = async (email: string, code: string) => {
   // Check if user exists
-  const user = await User.findOne({ email:email, otp: code.toString() });
+  const user = await User.findOne({ email:email, otp: code });
   if (!user) {
     throw new Error("User not found");
   }
 
-  if (user.otp !== code.toString()) {
+  if (user.otp !== code) {
     throw new Error("Invalid code");
   }
 

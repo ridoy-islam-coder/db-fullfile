@@ -159,13 +159,14 @@ export const emailverify = async (req: Request, res: Response, next: NextFunctio
 
 export const codeverify = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const { email, code } = req.body;
+    const { email, otp } = req.body;
 
-    if (!email || !code) {
-      return res.status(400).json({ message: "Email and code are required" });
+    if (!email || !otp) {
+      return res.status(400).json({ message: "Email and otp are required" });
     }
 
-    const result = await codeVerification(email, code);
+    const result = await codeVerification(email, otp);
+    console.log(result);
 
     return res.json({ status: "success", message: result.message });
   } catch (error) {
