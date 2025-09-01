@@ -1,5 +1,5 @@
 import express from "express";
-import { codeverify, emailverify, getProfile, loginUser, registerUser, updateProfile } from "./user.controller";
+import { codeverify, emailverify, forgetPassword, getProfile, loginUser, registerUser, updateProfile } from "./user.controller";
 import { auth } from "../../middleware/auth.middleware";
 
 
@@ -21,7 +21,7 @@ router.get("/emailverify/:email",  emailverify);
 // Code verification
 router.post("/codeVerification",codeverify)
 // Forget password
-router.post("/forgetpassword",codeverify)
+router.post("/forgetpassword",forgetPassword)
 
 
 

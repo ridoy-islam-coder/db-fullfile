@@ -100,3 +100,12 @@ export const codeVerification = async (email: string, code: string) => {
 
   return { message: "Code verified successfully" };
 };
+
+export const updatePassword = async (email: string, newPassword: string) => {
+  const hashedPassword = await bcrypt.hash(newPassword, 10);
+  const user = await User.findOneAndUpdate({ email }, { password: hashedPassword }, { new: true });
+  if (!user) {
+    throw new Error("User not found");
+  }
+  return { message: "Password updated successfully" };
+};

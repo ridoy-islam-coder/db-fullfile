@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from "express";
-import { existingUser, getUserProfile, LoginInUser, updateUserProfile, sendEmailVerification, codeVerification } from "./user.service";
+import { existingUser, getUserProfile, LoginInUser, updateUserProfile, sendEmailVerification, codeVerification, updatePassword } from "./user.service";
 
 
 
@@ -169,6 +169,25 @@ export const codeverify = async (req: Request, res: Response, next: NextFunction
     console.log(result);
 
     return res.json({ status: "success", message: result.message });
+  } catch (error) {
+    next(error);
+  }
+};
+
+
+export const forgetPassword = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const { email, otp, newPassword } = req.body;
+    if (!email || !otp || !newPassword) {
+      return res.status(400).json({ message: "Email, otp and new password are required" });
+    }
+    const result = await codeVerification(email, otp);
+    if(result.message !== "Code verified successfully"){
+      return res.status(400).json({ message: result.message });
+    }
+    await updatePassword(email, newPassword);
+    
+    return res.json({ status: "success", message: "Password updated successfully" });
   } catch (error) {
     next(error);
   }
