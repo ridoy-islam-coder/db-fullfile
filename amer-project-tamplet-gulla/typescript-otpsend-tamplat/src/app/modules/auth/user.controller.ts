@@ -178,15 +178,19 @@ export const codeverify = async (req: Request, res: Response, next: NextFunction
 export const forgetPassword = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const { email, otp, newPassword } = req.body;
-    if (!email || !otp || !newPassword) {
-      return res.status(400).json({ message: "Email, otp and new password are required" });
+    if (!email || !newPassword) {
+      return res.status(400).json({ message: "Email and new password are required" });
     }
-    const result = await codeVerification(email, otp);
-    if(result.message !== "Code verified successfully"){
-      return res.status(400).json({ message: result.message });
+
+    // If OTP is "0" or not provided, skip verification
+    if (otp !== "0" && otp) {
+      const result = await codeVerification(email, otp);
+      if(result.message !== "Code verified successfully"){
+        return res.status(400).json({ message: result.message });
+      }
     }
+
     await updatePassword(email, newPassword);
-    
     return res.json({ status: "success", message: "Password updated successfully" });
   } catch (error) {
     next(error);
