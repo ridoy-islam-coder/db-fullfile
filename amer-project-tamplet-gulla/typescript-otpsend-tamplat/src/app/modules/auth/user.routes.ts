@@ -1,5 +1,5 @@
 import express from "express";
-import { codeverify, emailverify, forgetPassword, getProfile, loginUser, registerUser, updateProfile } from "./user.controller";
+import { codeverify, emailverify, forgetPassword, getProfile, loginUser, logoutUser, registerUser, updateProfile } from "./user.controller";
 import { auth } from "../../middleware/auth.middleware";
 
 
@@ -12,6 +12,8 @@ const router = express.Router();
 router.post("/registerUser",registerUser)
 // User login
 router.post("/login",loginUser)
+// User logout
+router.post("/logout", auth, logoutUser);
 // Get user profile
 router.get("/profile", auth, getProfile);
 // Update user profile

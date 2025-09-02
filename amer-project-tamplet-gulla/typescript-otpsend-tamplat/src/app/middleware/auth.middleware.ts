@@ -2,7 +2,7 @@
 import { NextFunction, Request, Response } from "express";
 import  jwt  from 'jsonwebtoken';
 import { config } from "../config";
-import { User } from "../modules/auth/user.model";
+import { User, TokenBlacklist } from "../modules/auth/user.model";
 
 
 interface AuthenticatedRequest extends Request {
@@ -18,6 +18,12 @@ export const auth= async(req:AuthenticatedRequest, res:Response, next:NextFuncti
   if (!token) {
     return res.status(401).json({ message: "Unauthorized access" });
   }
+
+    // Check if token is blacklisted
+    const blacklistedToken = await TokenBlacklist.findOne({ token });
+    if (blacklistedToken) {
+      return res.status(401).json({ message: "Token has been invalidated" });
+    }
 
     const decoded = jwt.verify(token, config.jwt_secret as string)  as { userId: string, role: string };
     const user =await User.findById(decoded.userId)

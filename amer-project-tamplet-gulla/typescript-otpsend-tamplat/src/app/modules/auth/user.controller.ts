@@ -1,5 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import { existingUser, getUserProfile, LoginInUser, updateUserProfile, sendEmailVerification, codeVerification, updatePassword } from "./user.service";
+import { TokenBlacklist } from "./user.model";
 
 
 
@@ -192,6 +193,28 @@ export const forgetPassword = async (req: Request, res: Response, next: NextFunc
 
     await updatePassword(email, newPassword);
     return res.json({ status: "success", message: "Password updated successfully" });
+  } catch (error) {
+    next(error);
+  }
+};
+
+
+
+
+export const logoutUser = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    // Extract token from Authorization header
+    const token = req.headers.authorization?.split(" ")[1];
+
+    if (token) {
+      // Add token to blacklist
+      await TokenBlacklist.create({ token });
+    }
+
+    return res.status(200).json({
+      status: "success",
+      message: "User logged out successfully"
+    });
   } catch (error) {
     next(error);
   }

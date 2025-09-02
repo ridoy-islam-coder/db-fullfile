@@ -40,3 +40,19 @@ const userSchema =  new Schema<IUser>({
 })
 
 export const User = model<IUser>("User", userSchema)
+
+// Token Blacklist Schema for logout functionality
+const tokenBlacklistSchema = new Schema({
+  token: {
+    type: String,
+    required: true,
+    unique: true
+  },
+  createdAt: {
+    type: Date,
+    default: Date.now,
+    expires: '24h' // Tokens expire after 24 hours (same as JWT expiry)
+  }
+});
+
+export const TokenBlacklist = model("TokenBlacklist", tokenBlacklistSchema);
