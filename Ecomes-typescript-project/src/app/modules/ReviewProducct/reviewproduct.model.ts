@@ -1,13 +1,14 @@
 
 // for mongoose model
 import { model, Schema, Types } from 'mongoose'
-import { INVOIESPRODUCT } from './invoicesproduct.interface';
+
+import { IPRODUCTSLIDER } from './reviewproduct.interface';
 
 
 
 
 
-const  reviewproductSchema =  new Schema<INVOIESPRODUCT>({
+const  reviewproductSchema =  new Schema<IPRODUCTSLIDER>({
         userID: { type: Types.ObjectId,   ref: 'User', required: true},
         productID:{type: Types.ObjectId,required:true},
         des:{type:String,required:true},
@@ -21,4 +22,4 @@ const  reviewproductSchema =  new Schema<INVOIESPRODUCT>({
     versionKey: false
 })
 
-export const  ReviewModel = model<INVOIESPRODUCT>("reviewproducts",  reviewproductSchema);
+export const  ReviewModel = model<IPRODUCTSLIDER>("reviewproducts",  reviewproductSchema);
