@@ -56,12 +56,12 @@ const ProductSchema =  new Schema<IPRODUCT>({
     },
      categoryID: {
         type: Types.ObjectId,  // পরিবর্তন: ObjectId
-        ref: 'Category',  // রেফারেন্সঃ 'Category' মডেল
+        ref: 'categorys',  // রেফারেন্সঃ 'Category' মডেল
         required: true
     },
     brandID: {
         type: Types.ObjectId,  // পরিবর্তন: ObjectId
-        ref: 'Brand',  // রেফারেন্সঃ 'Brand' মডেল
+        ref: 'brands',  // রেফারেন্সঃ 'Brand' মডেল
         required: true
     },
     
