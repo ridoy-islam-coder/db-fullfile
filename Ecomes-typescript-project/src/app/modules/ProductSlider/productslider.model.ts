@@ -33,7 +33,7 @@ const ProductSliderSchema =  new Schema<IPRODUCTSLIDER>({
     
     productID: {
         type: Types.ObjectId,  // পরিবর্তন: ObjectId
-        ref: 'Brand',  // রেফারেন্সঃ 'Brand' মডেল
+        ref: 'brands',  // রেফারেন্সঃ 'Brand' মডেল
         required: true
     },
     
