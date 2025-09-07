@@ -21,4 +21,4 @@ router.get("/ProductListByRemark/:Remark",ProductListByRemark)
 //ProductDetailsID routers
 router.get("/ProductDetailsID/:Remark",ProductDetailsID)
 
-export const  CategoryRoutes = router;
+export const  ProductRoutes = router;

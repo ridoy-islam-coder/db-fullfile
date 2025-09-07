@@ -17,13 +17,3 @@ export const BrandsService =async () => {
 
 
 
-
-export const BrandServiceById =async (req:Request) => {
-  try {
-    
-      let BrandID=new ObjectId(req.params.id);
-      let MatchStage={$match:{BrandID:BrandID}};
-  } catch (error) {
-    return {status:'failed', data: error};
-  } 
-}

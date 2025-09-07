@@ -6,6 +6,9 @@ import { bookRoutes } from './app/modules/book/routes';
 import { userRoutes } from './app/modules/auth/user.routes';
 import errorHandler from './app/middleware/errorHandler';
 import { config } from './app/config';
+import { BrandsRoutes } from './app/modules/Brands/brands.routes';
+import { CategoryRoutes } from './app/modules/Category/category.routes';
+import { ProductRoutes } from './app/modules/Product/product.routes';
 
 const app = express();
 
@@ -30,6 +33,15 @@ app.set('etag', config.WEB_CACHE === 'true');
 //routes
 app.use("/api/v1",bookRoutes)
 app.use("/api/v1",userRoutes)
+app.use("/api/v1",BrandsRoutes)
+app.use("/api/v1",CategoryRoutes)
+app.use("/api/v1",ProductRoutes)
+
+
+
+
+
+
 
 
 
