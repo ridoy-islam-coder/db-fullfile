@@ -1,7 +1,7 @@
 
 
 import express from 'express';
-import { ProductListByBrand, ProductListByCategory } from './product.controller';
+import { ProductListByBrand, ProductListByCategory, ProductListByRemark } from './product.controller';
 
 
 
@@ -15,6 +15,7 @@ router.get("/ProductListByBrand/:BrandID",ProductListByBrand)
 //CategoryID routers
 router.get("/ProductListByCategory/:CategoryID",ProductListByCategory)
 
-
+//RemarkID routers
+router.get("/ProductListByRemark/:Remark",ProductListByRemark)
 
 export const  CategoryRoutes = router;
