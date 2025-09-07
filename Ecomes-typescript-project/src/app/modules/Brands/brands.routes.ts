@@ -13,4 +13,4 @@ router.get("/BrandList",BrandList)
 
 
 
-export const  bookRoutes = router;
+export const  BrandsRoutes = router;
