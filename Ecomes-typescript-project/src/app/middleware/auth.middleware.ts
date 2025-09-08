@@ -5,7 +5,7 @@ import { config } from "../config";
 import { User, TokenBlacklist } from "../modules/auth/user.model";
 
 
-interface AuthenticatedRequest extends Request {
+export interface AuthenticatedRequest extends Request {
   user?:any
 }
 

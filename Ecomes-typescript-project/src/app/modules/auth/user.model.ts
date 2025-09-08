@@ -41,3 +41,19 @@ const userSchema =  new Schema<IUser>({
 
 export const User = model<IUser>("User", userSchema)
 
+// Token Blacklist Schema for invalidated tokens
+const tokenBlacklistSchema = new Schema({
+    token: {
+        type: String,
+        required: true,
+        unique: true
+    },
+    createdAt: {
+        type: Date,
+        default: Date.now,
+        expires: '7d' // Token expires after 7 days
+    }
+});
+
+export const TokenBlacklist = model("TokenBlacklist", tokenBlacklistSchema);
+

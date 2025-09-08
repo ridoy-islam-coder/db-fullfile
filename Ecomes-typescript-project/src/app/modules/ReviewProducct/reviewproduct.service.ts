@@ -1,8 +1,9 @@
 import { Request } from "express";
-
+import { AuthenticatedRequest } from "../../middleware/auth.middleware";
 
 import mongoose from "mongoose";
 import { ReviewModel } from "./reviewproduct.model";
+
 const ObjectId =mongoose.Types.ObjectId;
 
 export const ReviewListService=async (req:Request) => {
@@ -34,3 +35,24 @@ export const ReviewListService=async (req:Request) => {
     }
 
 }
+
+
+
+export const CreateReviewService = async (req:AuthenticatedRequest) => {
+  try {
+    let user_id = req.user?.id;
+    let { productID, des, rating } = req.body;
+    let postJSON = {
+      userID: user_id,
+      productID: productID,
+      des: des,
+      rating: rating,
+    };
+
+    await ReviewModel.updateOne(postJSON, { $set: postJSON }, { upsert: true });
+
+    return { status: "success", message: "create Successfully" };
+  } catch (error: any) {
+    return { status: "fail", data: error.toString() };
+  }
+};
