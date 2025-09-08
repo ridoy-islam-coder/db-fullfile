@@ -140,3 +140,48 @@ export const DetailsService= async (req:Request) => {
         return {status:"fail",data:error.toString()}
     }
 }
+
+
+
+
+
+
+export const ListByKeywordService=async (req:Request) => {
+    try {
+    
+        let keyword=req.params.keyword
+        let regex={"$regex":keyword,"$options":"i"}
+        let SearchParams=[{title:regex},{shortDes:regex}]
+        let SearchQuery={$or:SearchParams}
+        let MatchStage={$match:SearchQuery}
+
+
+
+        let JoinWithBrandStage= {$lookup:{from:"brands",localField:"brandID",foreignField:"_id",as:"brand"}};
+        let JoinWithCategoryStage={$lookup:{from:"categories",localField:"categoryID",foreignField:"_id",as:"category"}};
+        let JoinWithDetailsStage={$lookup:{from:"productdetails",localField:"_id",foreignField:"productID",as:"details"}};
+
+
+        let UnwindBrandStage={$unwind:"$brand"}
+        let UnwindCategoryStage={$unwind:"$category"}
+        let UnwindDetailsStage={$unwind:"$details"}
+
+        let ProjectionStage={$project:{'brand._id':0,'category._id':0,'categoryID':0,'brandID':0}}
+
+        let data=await  ProductModell.aggregate([
+            MatchStage,
+            JoinWithBrandStage,
+            JoinWithCategoryStage,
+            JoinWithDetailsStage,
+            UnwindBrandStage,
+            UnwindCategoryStage,
+            UnwindDetailsStage,
+            ProjectionStage,
+        ])
+
+        return {status:"success",data:data}
+    }catch (error) {
+        return {status:"fail",data:error.toString()}
+    }
+
+}
