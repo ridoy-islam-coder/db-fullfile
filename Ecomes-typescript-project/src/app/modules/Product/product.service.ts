@@ -180,7 +180,7 @@ export const ListByKeywordService=async (req:Request) => {
         ])
 
         return {status:"success",data:data}
-    }catch (error) {
+    }catch (error:any) {
         return {status:"fail",data:error.toString()}
     }
 

@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { DetailsService, ListByBrandService, ListByCategoryService, ListByRemarkService } from "./product.service";
+import { DetailsService, ListByBrandService, ListByCategoryService, ListByKeywordService, ListByRemarkService } from "./product.service";
 
 
 
@@ -26,5 +26,11 @@ export const ProductListByRemark=async (req:Request,res:Response)=>{
 
 export const ProductDetailsID=async (req:Request,res:Response)=>{
     let result=await DetailsService(req)
+    return res.json(result)
+}
+
+
+export const ProductListByKeyword=async (req:Request,res:Response)=>{
+    let result=await ListByKeywordService(req)
     return res.json(result)
 }
