@@ -54,7 +54,6 @@ export const RemoveCartService= async (req:Request) => {
 
     try{
        let user_id=req.user?.id
-
        let body=req.body;
        body.userID = user_id;
 
@@ -65,4 +64,27 @@ export const RemoveCartService= async (req:Request) => {
     } catch (error:any) {
         return {status:"fail",data:error.toString()}
     }
+}
+
+
+
+export const UpdateCartService= async (req:Request) => {
+
+    try{
+        let user_id=req.user?.id
+        let {color,qty,size,id}=req.body;
+        let postJSON={
+         color:color,
+         qty:qty,
+         size:size
+ 
+        }
+ 
+       let data= await CardListModell.updateOne({userID:user_id,_id:id},{$set:postJSON})
+        
+        
+         return {status:"success",message:" Cart update Successfully",data:data}
+     } catch (error:any) {
+         return {status:"fail",data:error.toString()}
+     }
 }
