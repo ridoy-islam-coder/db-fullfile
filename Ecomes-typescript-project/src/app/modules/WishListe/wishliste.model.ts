@@ -14,13 +14,13 @@ const wishlisteSchema =  new Schema<IWISHLISTE>({
     
     productID: {
         type: Types.ObjectId,  // পরিবর্তন: ObjectId
-        ref: 'Brand',  // রেফারেন্সঃ 'Brand' মডেল
+        ref: 'products',  // রেফারেন্সঃ 'Brand' মডেল
         required: true
     },
     
      userID: {
         type: Types.ObjectId,  // পরিবর্তন: ObjectId
-        ref: 'Brand',  // রেফারেন্সঃ 'Brand' মডেল
+        ref: 'User',  // রেফারেন্সঃ 'Brand' মডেল
         required: true
     },
     
@@ -29,4 +29,4 @@ const wishlisteSchema =  new Schema<IWISHLISTE>({
     versionKey: false
 })
 
-export const ProductSliderModell = model<IWISHLISTE>("wishliste", wishlisteSchema);
+export const WishListeModell = model<IWISHLISTE>("wishliste", wishlisteSchema);

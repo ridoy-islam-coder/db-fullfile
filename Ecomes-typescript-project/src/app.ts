@@ -9,6 +9,7 @@ import { config } from './app/config';
 import { BrandsRoutes } from './app/modules/Brands/brands.routes';
 import { CategoryRoutes } from './app/modules/Category/category.routes';
 import { ProductRoutes } from './app/modules/Product/product.routes';
+import { WishListRoutes } from './app/modules/WishListe/wishliste.routes';
 
 const app = express();
 
@@ -36,6 +37,7 @@ app.use("/api/v1",userRoutes)
 app.use("/api/v1",BrandsRoutes)
 app.use("/api/v1",CategoryRoutes)
 app.use("/api/v1",ProductRoutes)
+app.use("/api/v1",WishListRoutes)
 
 
 
