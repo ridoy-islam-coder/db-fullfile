@@ -1,5 +1,5 @@
 import { Request, Response } from "express"
-import { CreateWishService, RemoveWishService } from "./wishliste.service"
+import { CreateWishService, ReadWishService, RemoveWishService } from "./wishliste.service"
 
 
 export const CreateWishList=async (req:Request,res:Response)=>{
@@ -11,5 +11,11 @@ export const CreateWishList=async (req:Request,res:Response)=>{
 
 export const DeleteWishList=async (req:Request,res:Response)=>{
     let result=await  RemoveWishService(req);
+    return res.json(result)
+}
+
+
+export const ReadWishList=async (req:Request,res:Response)=>{
+    let result=await  ReadWishService(req);
     return res.json(result)
 }
