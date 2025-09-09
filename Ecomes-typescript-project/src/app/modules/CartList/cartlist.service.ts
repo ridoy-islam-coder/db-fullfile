@@ -47,3 +47,22 @@ export const ReadCartService=async (req:Request)=>{
       }
 
 }
+
+
+
+export const RemoveCartService= async (req:Request) => {
+
+    try{
+       let user_id=req.user?.id
+
+       let body=req.body;
+       body.userID = user_id;
+
+       await  CardListModell.deleteOne(body)
+       
+       
+        return {status:"success",message:"Remove Successfully"}
+    } catch (error:any) {
+        return {status:"fail",data:error.toString()}
+    }
+}
