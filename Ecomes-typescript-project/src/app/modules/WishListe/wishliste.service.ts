@@ -48,3 +48,22 @@ export const  RemoveWishService= async (req:Request) => {
 }
 
 
+
+export const ReadWishService=async (req:Request)=>{
+    try {
+        let user_id=new ObjectId(req.user?.id);
+        let MatchStage={$match:{userID:user_id}}
+
+        let JoinStageProduct= {$lookup:{from:"products",localField:"productID",foreignField:"_id",as:"product"}};
+
+        let data=await  WishListeModell.aggregate([
+            MatchStage,
+            JoinStageProduct
+        ])
+        return {status:"success",message:"Read Successfully",data:data};
+      
+        } catch (error:any) {
+            return {status:"fail",data:error.toString()}
+      }
+}
+
