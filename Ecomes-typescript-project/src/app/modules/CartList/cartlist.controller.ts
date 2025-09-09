@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { CreateCartService, ReadCartService } from "./cartlist.service";
+import { CreateCartService, ReadCartService, RemoveCartService } from "./cartlist.service";
 
 
 export const  CreateCard=async (req:Request,res:Response)=>{
@@ -14,10 +14,10 @@ export const ReadCartList=async(req:Request,res:Response)=>{
     return res.json(result);
 }
 
-// export const RemoveCart=async(req,res)=>{
-//     let result=await RemoveCartService(req)
-//     return res.json(result);
-// }
+export const RemoveCart=async(req:Request,res:Response)=>{
+    let result=await RemoveCartService(req)
+    return res.json(result);
+}
 
 
 // export const UpdateCart=async(req,res)=>{
