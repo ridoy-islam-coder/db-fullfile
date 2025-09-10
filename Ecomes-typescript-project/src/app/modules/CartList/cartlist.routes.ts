@@ -14,6 +14,8 @@ const router = express.Router();
 // Create Wish List
 router.post("/CreateCard",auth, CreateCard);
 
+// Create Wish List
+router.post("/CreateCard",auth, CreateCard);
 
 
 
