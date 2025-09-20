@@ -17,6 +17,7 @@ export interface IUser extends Document {
     email: string;
     phoneNumber: string;
     password: string;
+    imgUrl: string;
     role: Role;
     createdAt: Date;
     updatedAt: Date;
