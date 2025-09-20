@@ -1,5 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import { existingUser, LoginInUser } from "./user.service";
+import { User } from "./user.model";
 
 
 
@@ -7,17 +8,17 @@ import { existingUser, LoginInUser } from "./user.service";
 export const registerUser = async (req:Request, res:Response, next:NextFunction) => {
 
     try{
-      const { username, email, password } = req.body;
+      const { phoneNumber, email, password } = req.body;
 
-      if (!username || !email || !password) {
+      if (!phoneNumber || !email || !password) {
         return res.status(400).json({ message: "All fields are required" });
       }
 
-     const user = await existingUser(username, email, password);
+     const user = await existingUser(phoneNumber, email, password);
 
         return res.status(201).json({ message: "User registered successfully", user:{
             _id: user._id,
-            username: user.username,
+            username: user.phoneNumber,
             email: user.email,
             role: user.role,
           
@@ -46,7 +47,7 @@ export const loginUser = async (req:Request, res:Response, next:NextFunction) =>
 
         return res.status(201).json({ message: "User logged in successfully" ,user:{
             _id: user._id,
-            username: user.username,
+            username: user.phoneNumber,
             email: user.email,
             role: user.role,
           
@@ -55,3 +56,20 @@ export const loginUser = async (req:Request, res:Response, next:NextFunction) =>
         next(error);
     }
 }   
+
+
+
+
+
+
+
+export const getUserProfile = async (userId: string) => {
+  return User.findById(userId).select("-password");
+};
+
+
+
+export const updateUserProfile = async (userId: string,updateData: { username?: string; email?: string; phone?: string; imgUrl?: string }
+) => {
+  return User.findByIdAndUpdate(userId, updateData, {new: true,runValidators: true,}).select("-password");
+};

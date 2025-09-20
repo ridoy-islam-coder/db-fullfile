@@ -46,6 +46,10 @@ const userSchema =  new Schema<IUser>({
     required: true,
     match: /^\d{10}$/, // Example pattern for 10-digit phone numbers
   },
+      imgUrl: {
+        type: String,
+         default: 'https://i.ibb.co/z5YHLV9/profile.png',
+    },
     role: {
         type: String,
         enum: Object.values(Role),
