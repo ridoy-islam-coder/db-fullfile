@@ -13,4 +13,8 @@ import { FinancialCreateService, FinancialUpdateService } from "./financial.serv
     }
 
 
-   
+     export const UpdateFinancial=async (req:Request,res:Response) => {
+    let result = await FinancialUpdateService(req);
+    res.json(result);
+
+    }
