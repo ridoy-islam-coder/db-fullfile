@@ -2,9 +2,9 @@ import express from 'express';
 import cors from 'cors';
 import helmet from 'helmet';
 import rateLimit from 'express-rate-limit';
-import { bookRoutes } from './app/modules/book/routes';
 import { userRoutes } from './app/modules/auth/user.routes';
 import errorHandler from './app/middleware/errorHandler';
+import { financialRoutes } from './app/modules/financial-Information/financial.routes';
 
 const app = express();
 
@@ -18,8 +18,9 @@ app.use(limiter);
 
 
 //routes
-app.use("/api/v1",bookRoutes)
+
 app.use("/api/v1",userRoutes)
+app.use("/api/v1",financialRoutes)
 
 
 

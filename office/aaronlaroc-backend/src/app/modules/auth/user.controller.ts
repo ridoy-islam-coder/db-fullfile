@@ -91,14 +91,3 @@ export const GetAllProfile=async (req:Request,res:Response) => {
 
 
 
-
-export const getUserProfile = async (userId: string) => {
-  return User.findById(userId).select("-password");
-};
-
-
-
-export const updateUserProfile = async (userId: string,updateData: { username?: string; email?: string; phone?: string; imgUrl?: string }
-) => {
-  return User.findByIdAndUpdate(userId, updateData, {new: true,runValidators: true,}).select("-password");
-};
