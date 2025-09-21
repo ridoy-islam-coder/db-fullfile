@@ -10,7 +10,7 @@ import { HOME_INSURANCE_TYPE, HOME_OCCUPANCY, IHomeVehicle, POWER_TOYS, VEHICLE_
 
 
 
-const financialSchema =  new Schema<IHomeVehicle>({
+const homeautoSchema =  new Schema<IHomeVehicle>({
      // Vehicle
     vehicleOwnership: {
       type: String,
@@ -64,4 +64,4 @@ const financialSchema =  new Schema<IHomeVehicle>({
     timestamps: true
 })
 
-export const FinancialModel = model<IHomeVehicle>("financial", financialSchema);
+export const HomeAutoModel = model<IHomeVehicle>("homeauto", homeautoSchema);
