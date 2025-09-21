@@ -4,31 +4,31 @@ import { IUser, Role } from "./user.interface"
 const userSchema =  new Schema<IUser>({
   firstName: {
     type: String,
-    required: true
+  
   },
   lastName: {
     type: String,
-    required: true
+  
   },
   dateOfBirth: {
     type: Date,
-    required: true
+  
   },
   city: {
     type: String,
-    required: true
+
   },
   state: {
     type: String,
-    required: true
+  
   },
   company: {
     type: String,
-    required: true
+   
   },
   yearStarted: {
     type: Number,
-    required: true
+   
   },
   email: {
     type: String,
@@ -44,7 +44,8 @@ const userSchema =  new Schema<IUser>({
   phoneNumber: {
     type: String,
     required: true,
-    match: /^\d{10}$/, // Example pattern for 10-digit phone numbers
+    // match: /^\d{10}$/, 
+    // Example pattern for 10-digit phone numbers
   },
       imgUrl: {
         type: String,

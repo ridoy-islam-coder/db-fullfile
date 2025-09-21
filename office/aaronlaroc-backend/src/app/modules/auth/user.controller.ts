@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from "express";
-import { existingUser, LoginInUser } from "./user.service";
+import { existingUser, getallUsers, getprofileService, LoginInUser, profileupdateService } from "./user.service";
 import { User } from "./user.model";
 
 
@@ -18,7 +18,7 @@ export const registerUser = async (req:Request, res:Response, next:NextFunction)
 
         return res.status(201).json({ message: "User registered successfully", user:{
             _id: user._id,
-            username: user.phoneNumber,
+            phoneNumber: user.phoneNumber,
             email: user.email,
             role: user.role,
           
@@ -56,6 +56,35 @@ export const loginUser = async (req:Request, res:Response, next:NextFunction) =>
         next(error);
     }
 }   
+
+
+
+
+export const GetProfileData=async (req:Request,res:Response) => {
+  
+    let result = await getprofileService(req);
+    res.json(result);
+
+}
+
+
+export const ProfileUpdate=async (req:Request,res:Response) => {
+  
+    let result = await profileupdateService(req);
+    res.json(result);
+
+}
+
+
+
+export const GetAllProfile=async (req:Request,res:Response) => {
+  
+    let result = await getallUsers();
+    res.json(result);
+
+}
+
+
 
 
 

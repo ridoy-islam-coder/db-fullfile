@@ -1,7 +1,7 @@
 
 // for mongoose model
 
-import { model, Schema } from 'mongoose'
+import { model, Schema, Types } from 'mongoose'
 import { MEDICAL } from './medical.interface';
 
 
@@ -23,6 +23,7 @@ const medicalSchema =  new Schema<MEDICAL>({
       type: String,
       required: false,
     },
+    userID: { type: Types.ObjectId,   ref: 'User', required: true},
 
     },{
     timestamps: true
