@@ -15,3 +15,21 @@ export const MedicalUpdateService = async (req:Request) => {
     return {status:'failed', data: error};
   }
 }
+
+
+
+
+export const getEmergencyContactCompletion = async (req: Request) => {
+    try {  
+        
+  const userID = req.params.userID;
+  const totalRequired = 3; // Change as needed
+
+  const count = await MedicalModel.countDocuments({ userID });
+  const percent = Math.round((count / totalRequired) * 100);
+
+    return { status: 'success', data: { percent } };
+    } catch (error) {
+      return {status:'failed', data: error};
+    }
+};
