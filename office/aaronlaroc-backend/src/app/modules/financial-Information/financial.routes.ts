@@ -1,7 +1,7 @@
 import express from "express";
 
 import { auth } from './../../middleware/auth.middleware';
-import { CreateFinancial } from "./financial.controller";
+import { UpdateFinancial } from "./financial.controller";
 
 
 
@@ -10,8 +10,8 @@ import { CreateFinancial } from "./financial.controller";
 const router = express.Router();
 
 // create Financial Information 
-router.post("/CreateFinancial",auth,CreateFinancial)
-
+router.post("/CreateFinancial",auth,UpdateFinancial)
+router.post("/UpdateFinancial",auth,UpdateFinancial)
 
 
 
