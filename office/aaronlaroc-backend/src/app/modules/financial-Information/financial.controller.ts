@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { FinancialCreateService } from "./financial.service";
+import { FinancialCreateService, FinancialUpdateService } from "./financial.service";
 
 
 
@@ -11,3 +11,6 @@ import { FinancialCreateService } from "./financial.service";
     res.json(result);
 
     }
+
+
+   
