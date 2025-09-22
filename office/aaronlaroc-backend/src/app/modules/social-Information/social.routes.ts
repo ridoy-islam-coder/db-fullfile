@@ -13,8 +13,8 @@ import { SocialInformation } from "./social.controller";
 const router = express.Router();
 
 // create Financial Information 
-router.post("/CreateFinancial",auth,SocialInformation)
-router.post("/UpdateFinancial",auth,SocialInformation)
+router.post("/CreateSocialInfo",auth,SocialInformation)
+router.post("/UpdateSocialInfo",auth,SocialInformation)
 
 
 
@@ -35,4 +35,4 @@ router.post("/UpdateFinancial",auth,SocialInformation)
 
 
 
-export const financialRoutes = router;
+export const socialRoutes = router;

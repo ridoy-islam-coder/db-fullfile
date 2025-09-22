@@ -6,6 +6,7 @@ import { userRoutes } from './app/modules/auth/user.routes';
 import errorHandler from './app/middleware/errorHandler';
 import { financialRoutes } from './app/modules/financial-Information/financial.routes';
 import { medicalRoutes } from './app/modules/medical-Information/medical.routes';
+import { socialRoutes } from './app/modules/social-Information/social.routes';
 
 const app = express();
 
@@ -23,6 +24,7 @@ app.use(limiter);
 app.use("/api/v1",userRoutes)
 app.use("/api/v1",financialRoutes)
 app.use("/api/v1",medicalRoutes)
+app.use("/api/v1",socialRoutes)
 
 
 
