@@ -3,7 +3,7 @@ import { ISocialInfo } from "./social.interface";
 
 const SocialInfoSchema = new Schema<ISocialInfo>(
   {
-    userId: {
+    userID: {
       type: Schema.Types.ObjectId,
       ref: "User",
       required: true,
@@ -25,7 +25,7 @@ const SocialInfoSchema = new Schema<ISocialInfo>(
       default: undefined,
     },
   },
-  { timestamps: true }
+  { timestamps: true, versionKey: false }
 );
 
-export const SocialInfoModel = model<ISocialInfo>("SocialInfo", SocialInfoSchema);
+export const SocialInfoModel = model<ISocialInfo>("socialInfo", SocialInfoSchema);
