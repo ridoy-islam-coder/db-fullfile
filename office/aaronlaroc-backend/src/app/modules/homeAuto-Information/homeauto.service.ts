@@ -4,7 +4,7 @@ import { HomeAutoModel } from "./homeauto.model";
 
 
 
-export const MedicalUpdateService = async (req:Request) => {
+export const HomeAutoService = async (req:Request) => {
   try {
        let user_id = req.user?.id;
         let requestBody = req.body;
