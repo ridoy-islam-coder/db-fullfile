@@ -104,3 +104,36 @@ export const getallUsers = async () => {
   }
 
 }
+
+
+
+
+
+export const Searchbarservice = async (searchTerm:string) => {
+
+  try {
+ 
+    const users = await User.find({
+      $or: [
+        { email: { $regex: searchTerm, $options: 'i' } },  // Case-insensitive search for email
+        { phoneNumber: { $regex: searchTerm, $options: 'i' } },  
+      ]
+    },{_id: 0,role:0,password:0,createdAt:0,updatedAt:0,__v:0}); // Case-insensitive search for phoneNumber});
+
+    return {
+      status: "success",
+      message: "Search results successfully fetched",
+      data: users
+    };
+  } catch (error) {
+    return {status:'failed', data: error};
+  }
+
+}
+
+
+
+
+
+
+

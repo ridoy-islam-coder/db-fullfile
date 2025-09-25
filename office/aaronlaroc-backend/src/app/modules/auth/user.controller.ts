@@ -1,6 +1,7 @@
 import { NextFunction, Request, Response } from "express";
-import { existingUser, getallUsers, getprofileService, LoginInUser, profileupdateService } from "./user.service";
+import { existingUser, getallUsers, getprofileService, LoginInUser, profileupdateService, Searchbarservice } from "./user.service";
 import { User } from "./user.model";
+
 
 
 
@@ -85,7 +86,24 @@ export const GetAllProfile=async (req:Request,res:Response) => {
 }
 
 
+export const  Searchbar=async (req:Request,res:Response)=> {
+   const { searchTerm } = req.params;
 
+
+  if (!searchTerm || typeof searchTerm !== 'string') {
+    return res.status(400).json({ message: 'Search term is required and must be a string' });
+  }
+
+
+  
+    const result = await Searchbarservice(searchTerm);
+    
+    if (!Array.isArray(result.data) || result.data.length === 0) {
+      return res.status(404).json({ message: 'No users found' });
+    }
+
+    return res.status(200).json(result);
+}
 
 
 
