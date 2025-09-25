@@ -2,7 +2,8 @@
 import express from "express";
 
 import { auth } from './../../middleware/auth.middleware';
-import { getEmergencyContact, UpdateMedical } from "./medical.controller";
+
+import { HomeAutoUpdate } from "./homeauto.controller";
 
 
 
@@ -12,11 +13,10 @@ import { getEmergencyContact, UpdateMedical } from "./medical.controller";
 const router = express.Router();
 
 // create Financial Information 
-router.post("/CreateMedical",auth,UpdateMedical)
+router.post("/CreateHomeAuto",auth,HomeAutoUpdate)
 //update Medical Information
-router.post("/UpdateMedical",auth,UpdateMedical)
-//get Medical Information
-router.get("/getEmergencyContact/:userID",auth,getEmergencyContact)
+router.post("/UpdateHomeAuto",auth,HomeAutoUpdate)
+
 
 
 
