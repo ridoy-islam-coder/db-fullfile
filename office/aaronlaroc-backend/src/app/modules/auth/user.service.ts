@@ -3,7 +3,7 @@ import bcrypt from "bcryptjs";
  import jwt from "jsonwebtoken";
 import { config } from './../../config/index';
 import { NextFunction, Request } from "express";
-
+import mongoose from 'mongoose';
 // Extend Express Request type to include 'user'
 declare global {
   namespace Express {
@@ -138,27 +138,45 @@ export const Searchbarservice = async (searchTerm:string) => {
 
 export const followUserService = async (req: Request) => {
   try {
-    const { userIdToFollow } = req.body;  
-        console.log("userIdToFollow:", userIdToFollow);  
-    const userId = req.user?.id;  
+    const userId = req.user?.id; 
+    const followedUserId = req.params.followedUserId;
 
-    // Find the user who is trying to follow
+    console.log('userId:', userId);
+    console.log('followedUserId:', followedUserId);
+
+
+    if (!userId || !followedUserId || !mongoose.Types.ObjectId.isValid(userId) || !mongoose.Types.ObjectId.isValid(followedUserId)) {
+      return { status: 'failed', message: 'Invalid user or followed user ID' };
+    }
+
+    if (userId === followedUserId) {
+      return { status: 'failed', message: "You cannot follow yourself" };
+    }
+
+    const followedUserObjectId = new mongoose.Types.ObjectId(followedUserId);
+
+  
     const user = await User.findById(userId);
-
     if (!user) {
       return { status: 'failed', message: 'User not found' };
     }
 
-    // Check if the user is already following the target user
-    if (user.following.includes(userIdToFollow)) {
-      return { status: 'failed', message: 'Already following this user' };
+
+    const followedUser = await User.findById(followedUserObjectId);
+    if (!followedUser) {
+      return { status: 'failed', message: "Followed user not found" };
     }
 
-    // Add the target user to the following list
-    user.following.push(userIdToFollow);
-   console.log('Following before update:', user.following);
-await user.save();
-console.log('Following after update:', user.following);
+   
+    if (user.followers.includes(followedUserObjectId)) {
+      return { status: 'failed', message: "You are already following this user" };
+    }
+
+ 
+    user.followers.push(followedUserObjectId);
+
+ 
+    await user.save();
 
     return { status: 'success', message: 'User followed successfully', data: user };
   } catch (error) {

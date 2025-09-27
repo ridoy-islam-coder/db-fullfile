@@ -27,7 +27,7 @@ router.get("/GetAllProfile",auth,GetAllProfile)
 router.post("/Searchbar/:searchTerm",auth,Searchbar)
 
 // follo user
-router.post("/follow",auth,followUserController)
+router.post("/follow/:followedUserId",auth,followUserController)
 
 
 
