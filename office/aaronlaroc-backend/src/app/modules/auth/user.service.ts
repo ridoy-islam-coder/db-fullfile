@@ -233,3 +233,33 @@ export const unfollowUserService = async (req: Request) => {
    return {status:'failed', data: error};
   }
 };
+
+
+
+
+
+
+// Get the count of users the current user is following
+export const getFollowingCount = async (req: Request) => {
+  try {
+    const userId = req.user?.id;  
+    if (!userId) {
+    
+       return { status: 'failed', message: 'User not authenticated'  };
+    }
+
+  
+    const user = await User.findById(userId);
+    if (!user) {
+      
+       return { status: 'failed',  message: 'User not found'  };
+    }
+
+    // ফলো করা ইউজারদের সংখ্যা বের করা হচ্ছে
+    const followingCount = user.followers.length;
+      return {  status: 'success', message: `You are following ${followingCount} users`,count:followingCount };
+  } catch (error) {
+    console.error(error);
+      return {status:'failed', data: error};
+  }
+};

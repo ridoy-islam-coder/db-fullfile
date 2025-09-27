@@ -1,5 +1,5 @@
 import express from "express";
-import { followUserController, GetAllProfile, GetProfileData, loginUser, ProfileUpdate, registerUser, Searchbar, unfollowUserController } from "./user.controller";
+import { followinguser, followUserController, GetAllProfile, GetProfileData, loginUser, ProfileUpdate, registerUser, Searchbar, unfollowUserController } from "./user.controller";
 import { auth } from './../../middleware/auth.middleware';
 
 
@@ -34,6 +34,8 @@ router.post("/follow/:followedUserId",auth,followUserController)
 router.post("/unfollow/:followedUserId",auth,unfollowUserController)
 
 
+
+router.get("/following",auth,followinguser)
 
 
 
