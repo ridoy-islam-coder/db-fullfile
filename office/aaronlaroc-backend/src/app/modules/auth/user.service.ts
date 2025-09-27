@@ -136,4 +136,33 @@ export const Searchbarservice = async (searchTerm:string) => {
 
 
 
+export const followUserService = async (req: Request) => {
+  try {
+    const { userIdToFollow } = req.body;  
+        console.log("userIdToFollow:", userIdToFollow);  
+    const userId = req.user?.id;  
+
+    // Find the user who is trying to follow
+    const user = await User.findById(userId);
+
+    if (!user) {
+      return { status: 'failed', message: 'User not found' };
+    }
+
+    // Check if the user is already following the target user
+    if (user.following.includes(userIdToFollow)) {
+      return { status: 'failed', message: 'Already following this user' };
+    }
+
+    // Add the target user to the following list
+    user.following.push(userIdToFollow);
+   console.log('Following before update:', user.following);
+await user.save();
+console.log('Following after update:', user.following);
+
+    return { status: 'success', message: 'User followed successfully', data: user };
+  } catch (error) {
+      return {status:'failed', data: error};
+  }
+};
 
