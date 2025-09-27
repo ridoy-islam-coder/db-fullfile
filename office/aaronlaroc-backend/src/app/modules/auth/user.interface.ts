@@ -19,7 +19,7 @@ export interface IUser extends Document {
     password: string;
     imgUrl: string;
     role: Role;
-    following: Types.ObjectId[];  
+    followers: Types.ObjectId[];  
     createdAt: Date;
     updatedAt: Date;
     

@@ -51,15 +51,13 @@ const userSchema =  new Schema<IUser>({
         type: String,
          default: 'https://i.ibb.co/z5YHLV9/profile.png',
     },
+     followers: [{ type: Types.ObjectId, ref: "User" }], 
     role: {
         type: String,
         enum: Object.values(Role),
         default: Role.USER
     },
-    following: [{
-    type: Types.ObjectId,
-    ref: 'User',  // Refers to User model to store followed users
-  }]
+  
 }, {
     timestamps: true,versionKey:false
 })
