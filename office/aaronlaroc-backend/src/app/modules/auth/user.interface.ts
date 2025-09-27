@@ -1,4 +1,4 @@
-import { Document } from "mongoose";
+import { Document, Types } from "mongoose";
 
 export enum Role {
     USER = "user",
@@ -19,6 +19,7 @@ export interface IUser extends Document {
     password: string;
     imgUrl: string;
     role: Role;
+    following: Types.ObjectId[];  
     createdAt: Date;
     updatedAt: Date;
     

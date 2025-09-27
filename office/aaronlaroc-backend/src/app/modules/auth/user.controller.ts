@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from "express";
-import { existingUser, getallUsers, getprofileService, LoginInUser, profileupdateService, Searchbarservice } from "./user.service";
+import { existingUser, followUserService, getallUsers, getprofileService, LoginInUser, profileupdateService, Searchbarservice } from "./user.service";
 import { User } from "./user.model";
 
 
@@ -108,4 +108,7 @@ export const  Searchbar=async (req:Request,res:Response)=> {
 
 
 
-
+export const followUserController = async (req: Request, res: Response) => {
+  const result = await followUserService(req);
+  return res.json(result);
+};

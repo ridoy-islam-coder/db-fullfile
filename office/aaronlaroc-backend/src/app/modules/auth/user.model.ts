@@ -1,4 +1,4 @@
-import { model, Schema } from "mongoose"
+import { model, Schema, Types } from "mongoose"
 import { IUser, Role } from "./user.interface"
 
 const userSchema =  new Schema<IUser>({
@@ -56,6 +56,10 @@ const userSchema =  new Schema<IUser>({
         enum: Object.values(Role),
         default: Role.USER
     },
+    following: [{
+    type: Types.ObjectId,
+    ref: 'User',  // Refers to User model to store followed users
+  }]
 }, {
     timestamps: true,versionKey:false
 })

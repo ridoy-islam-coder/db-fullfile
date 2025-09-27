@@ -1,5 +1,5 @@
 import express from "express";
-import { GetAllProfile, GetProfileData, loginUser, ProfileUpdate, registerUser, Searchbar } from "./user.controller";
+import { followUserController, GetAllProfile, GetProfileData, loginUser, ProfileUpdate, registerUser, Searchbar } from "./user.controller";
 import { auth } from './../../middleware/auth.middleware';
 
 
@@ -26,7 +26,8 @@ router.get("/GetAllProfile",auth,GetAllProfile)
 // Get All User Profile
 router.post("/Searchbar/:searchTerm",auth,Searchbar)
 
-
+// follo user
+router.post("/follow",auth,followUserController)
 
 
 
