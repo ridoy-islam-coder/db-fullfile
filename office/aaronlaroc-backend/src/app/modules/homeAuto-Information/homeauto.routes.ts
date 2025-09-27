@@ -12,15 +12,16 @@ import { HomeAutoUpdate } from "./homeauto.controller";
 
 const router = express.Router();
 
-// create Financial Information 
-router.post("/CreateHomeAuto",auth,HomeAutoUpdate)
-//update Medical Information
+// // create Financial Information 
+// router.post("/CreateHomeAuto",auth,HomeAutoUpdate)
+// //update Medical Information
+// router.post("/UpdateHomeAuto",auth,HomeAutoUpdate)
+
+
+
+
+//HomeAuto Information
 router.post("/UpdateHomeAuto",auth,HomeAutoUpdate)
-
-
-
-
-
 
 
 
