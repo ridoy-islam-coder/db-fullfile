@@ -184,3 +184,52 @@ export const followUserService = async (req: Request) => {
   }
 };
 
+
+
+
+// Unfollow API
+export const unfollowUserService = async (req: Request) => {
+  try {
+    const userId = req.user?.id; 
+    const followedUserId = req.params.followedUserId;
+
+ 
+    if (!userId || !followedUserId || !mongoose.Types.ObjectId.isValid(userId) || !mongoose.Types.ObjectId.isValid(followedUserId)) {
+     
+         return {  status: 'failed', message: 'Invalid user or followed user ID'  };
+    }
+
+  
+    if (userId === followedUserId) {
+      
+       return { status: 'failed', message: "You cannot unfollow yourself"  };
+    }
+
+    const user = await User.findById(userId);
+    if (!user) {
+            return { status: 'failed', message: 'User not found' };
+    }
+
+    const followedUserObjectId = new mongoose.Types.ObjectId(followedUserId);
+
+    const followedUser = await User.findById(followedUserObjectId);
+    if (!followedUser) {
+      
+      return { status: 'failed', message: "Followed user not found" };
+    }
+
+    if (!user.followers.includes(followedUserObjectId)) {
+
+       return {  status: 'failed', message: "You are not following this user"  };
+    }
+
+    user.followers = user.followers.filter(follower => follower.toString() !== followedUserId);
+
+    await user.save();
+   return { status: 'success',  message: 'User unfollowed successfully', data: user };
+
+  } catch (error) {
+    console.error(error);
+   return {status:'failed', data: error};
+  }
+};
