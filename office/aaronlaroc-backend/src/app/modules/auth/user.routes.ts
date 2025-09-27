@@ -1,5 +1,5 @@
 import express from "express";
-import { followUserController, GetAllProfile, GetProfileData, loginUser, ProfileUpdate, registerUser, Searchbar } from "./user.controller";
+import { followUserController, GetAllProfile, GetProfileData, loginUser, ProfileUpdate, registerUser, Searchbar, unfollowUserController } from "./user.controller";
 import { auth } from './../../middleware/auth.middleware';
 
 
@@ -30,8 +30,8 @@ router.post("/Searchbar/:searchTerm",auth,Searchbar)
 router.post("/follow/:followedUserId",auth,followUserController)
 
 
-
-
+// unfollo user
+router.post("/unfollow/:followedUserId",auth,unfollowUserController)
 
 
 
