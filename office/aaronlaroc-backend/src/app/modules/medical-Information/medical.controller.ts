@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { getEmergencyContactCompletion, MedicalUpdateService } from "./medical.service";
+import {   MedicalUpdateService } from "./medical.service";
 
 
      export const UpdateMedical=async (req:Request,res:Response) => {
@@ -9,8 +9,8 @@ import { getEmergencyContactCompletion, MedicalUpdateService } from "./medical.s
     }
 
 
-    export const getEmergencyContact=async (req:Request,res:Response) => {
-    let result = await getEmergencyContactCompletion(req);
-    res.json(result);
+//     export const calculateMedicalData=async (req:Request,res:Response) => {
+//     let result = await calculateMedicalDataCompleteness(req);
+//     res.json(result);
 
-    }
+//     }

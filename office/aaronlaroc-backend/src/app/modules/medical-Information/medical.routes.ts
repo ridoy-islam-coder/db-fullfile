@@ -2,7 +2,8 @@
 import express from "express";
 
 import { auth } from './../../middleware/auth.middleware';
-import { getEmergencyContact, UpdateMedical } from "./medical.controller";
+import { UpdateMedical } from "./medical.controller";
+import { calculateMedicalDataCompleteness } from "./medical.service";
 
 
 
@@ -15,8 +16,10 @@ const router = express.Router();
 router.post("/CreateMedical",auth,UpdateMedical)
 //update Medical Information
 router.post("/UpdateMedical",auth,UpdateMedical)
-//get Medical Information
-router.get("/getEmergencyContact/:userID",auth,getEmergencyContact)
+
+
+router.post("/calculateMedicalDataCompleteness",auth,calculateMedicalDataCompleteness)
+
 
 
 
