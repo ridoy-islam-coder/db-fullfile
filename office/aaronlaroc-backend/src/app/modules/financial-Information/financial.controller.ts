@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import {  FinancialUpdateService } from "./financial.service";
+import {  FinancialUpdateService, shareFinancialDataWithProxyset } from "./financial.service";
 
 
 
@@ -15,6 +15,14 @@ import {  FinancialUpdateService } from "./financial.service";
 
      export const UpdateFinancial=async (req:Request,res:Response) => {
     let result = await FinancialUpdateService(req);
+    res.json(result);
+
+    }
+
+
+    export const shareFinancial=async (req:Request,res:Response) => {
+    const id = req.params.id; // or req.body.id, depending on how id is sent
+    let result = await shareFinancialDataWithProxyset(id);
     res.json(result);
 
     }
