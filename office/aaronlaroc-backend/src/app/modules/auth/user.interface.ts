@@ -20,7 +20,7 @@ export interface IUser extends Document {
     imgUrl: string;
     role: Role;
     followers: Types.ObjectId[];  
-    following: Types.ObjectId[];
+    proxysetId: Types.ObjectId[];
     createdAt: Date;
     updatedAt: Date;
     

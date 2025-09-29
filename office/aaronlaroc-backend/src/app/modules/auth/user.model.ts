@@ -52,7 +52,7 @@ const userSchema =  new Schema<IUser>({
          default: 'https://i.ibb.co/z5YHLV9/profile.png',
     },
      followers: [{ type: Types.ObjectId, ref: "User" }], 
-     following: [{ type: Types.ObjectId, ref: "User" }],
+     proxysetId: [{ type: Types.ObjectId, ref: "User" }],
     role: {
         type: String,
         enum: Object.values(Role),

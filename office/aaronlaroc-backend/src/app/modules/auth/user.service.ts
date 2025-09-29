@@ -141,8 +141,7 @@ export const followUserService = async (req: Request) => {
     const userId = req.user?.id; 
     const followedUserId = req.params.followedUserId;
 
-    console.log('userId:', userId);
-    console.log('followedUserId:', followedUserId);
+
 
 
     if (!userId || !followedUserId || !mongoose.Types.ObjectId.isValid(userId) || !mongoose.Types.ObjectId.isValid(followedUserId)) {
@@ -260,6 +259,62 @@ export const getFollowingCount = async (req: Request) => {
       return {  status: 'success', message: `You are following ${followingCount} users`,count:followingCount };
   } catch (error) {
     console.error(error);
+      return {status:'failed', data: error};
+  }
+};
+
+
+
+
+
+
+
+
+
+
+export const ProxysetService = async (req: Request) => {
+  try {
+    const userId = req.user?.id; 
+    const ProxysetUserId = req.params.proxysetId;
+
+  
+
+
+    if (!userId || !ProxysetUserId || !mongoose.Types.ObjectId.isValid(userId) || !mongoose.Types.ObjectId.isValid(ProxysetUserId)) {
+      return { status: 'failed', message: 'Invalid user or followed user ID' };
+    }
+
+    if (userId === ProxysetUserId) {
+      return { status: 'failed', message: "You cannot follow yourself" };
+    }
+
+    const followedUserObjectId = new mongoose.Types.ObjectId(ProxysetUserId);
+
+  
+    const user = await User.findById(userId);
+    if (!user) {
+      return { status: 'failed', message: 'User not found' };
+    }
+
+
+    const followedUser = await User.findById(followedUserObjectId);
+    if (!followedUser) {
+      return { status: 'failed', message: "Followed user not found" };
+    }
+
+   
+    if (user.proxysetId.includes(followedUserObjectId)) {
+      return { status: 'failed', message: "You are already following this user" };
+    }
+
+ 
+    user.proxysetId.push(followedUserObjectId);
+
+ 
+    await user.save();
+
+    return { status: 'success', message: 'User followed successfully', data: user };
+  } catch (error) {
       return {status:'failed', data: error};
   }
 };
