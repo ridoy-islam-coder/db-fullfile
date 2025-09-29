@@ -272,13 +272,60 @@ export const getFollowingCount = async (req: Request) => {
 
 
 
+// export const ProxysetService = async (req: Request) => {
+//   try {
+//     const userId = req.user?.id; 
+//     const ProxysetUserId = req.params.proxysetId;
+
+  
+
+
+//     if (!userId || !ProxysetUserId || !mongoose.Types.ObjectId.isValid(userId) || !mongoose.Types.ObjectId.isValid(ProxysetUserId)) {
+//       return { status: 'failed', message: 'Invalid user or followed user ID' };
+//     }
+
+//     if (userId === ProxysetUserId) {
+//       return { status: 'failed', message: "You cannot follow yourself" };
+//     }
+
+//     const ProxysetUserIdObjectId = new mongoose.Types.ObjectId(ProxysetUserId);
+
+  
+//     const user = await User.findById(userId);
+//     if (!user) {
+//       return { status: 'failed', message: 'User not found' };
+//     }
+
+
+//     const followedUser = await User.findById(ProxysetUserIdObjectId);
+//     if (!followedUser) {
+//       return { status: 'failed', message: "Followed user not found" };
+//     }
+
+   
+//     if (user.proxysetId.includes(ProxysetUserIdObjectId)) {
+//       return { status: 'failed', message: "You are already following this user" };
+//     }
+
+ 
+//     user.proxysetId.push(ProxysetUserIdObjectId);
+
+ 
+//     await user.save();
+
+//     return { status: 'success', message: 'User followed successfully', data: user };
+//   } catch (error) {
+//       return {status:'failed', data: error};
+//   }
+// };
+
+
+
+
 export const ProxysetService = async (req: Request) => {
   try {
     const userId = req.user?.id; 
     const ProxysetUserId = req.params.proxysetId;
-
-  
-
 
     if (!userId || !ProxysetUserId || !mongoose.Types.ObjectId.isValid(userId) || !mongoose.Types.ObjectId.isValid(ProxysetUserId)) {
       return { status: 'failed', message: 'Invalid user or followed user ID' };
@@ -288,33 +335,81 @@ export const ProxysetService = async (req: Request) => {
       return { status: 'failed', message: "You cannot follow yourself" };
     }
 
-    const followedUserObjectId = new mongoose.Types.ObjectId(ProxysetUserId);
+    const ProxysetUserIdObjectId = new mongoose.Types.ObjectId(ProxysetUserId);
 
-  
     const user = await User.findById(userId);
     if (!user) {
       return { status: 'failed', message: 'User not found' };
     }
 
-
-    const followedUser = await User.findById(followedUserObjectId);
+    const followedUser = await User.findById(ProxysetUserIdObjectId);
     if (!followedUser) {
       return { status: 'failed', message: "Followed user not found" };
     }
 
-   
-    if (user.proxysetId.includes(followedUserObjectId)) {
+    if (user.proxysetId.length >= 2) {
+    
+      user.proxysetId[0] = ProxysetUserIdObjectId; 
+
+      await user.save();
+
+      return { status: 'success', message: 'User followed successfully, updated first ProxySet', data: user };
+    }
+
+    
+    if (user.proxysetId.includes(ProxysetUserIdObjectId)) {
       return { status: 'failed', message: "You are already following this user" };
     }
 
- 
-    user.proxysetId.push(followedUserObjectId);
+    user.proxysetId.push(ProxysetUserIdObjectId);
 
- 
     await user.save();
 
     return { status: 'success', message: 'User followed successfully', data: user };
   } catch (error) {
       return {status:'failed', data: error};
+  }
+};
+
+
+
+
+
+
+
+
+export const getProxysetData = async (userId: string) => {
+  try {
+    // আপনার প্রাথমিক ব্যবহারকারী ডেটা উদ্ধার
+    const user = await User.aggregate([
+      {
+        $match: {
+          _id: new mongoose.Types.ObjectId(userId),
+        },
+      },
+      {
+        $lookup: {
+          from: "users",
+          localField: "proxysetId", 
+          foreignField: "_id", 
+          as: "proxysetDetails", 
+        },
+      },
+      {
+        $project: {
+          firstName: 1, 
+          lastName: 1,
+          proxysetDetails: 1,
+        },
+      },
+    ]);
+
+    if (user.length === 0) {
+      return { status: "failed", message: "User not found" };
+    }
+
+    return { status: "success", data: user[0] };
+  } catch (error) {
+    return {status:'failed', data: error};
   }
 };
