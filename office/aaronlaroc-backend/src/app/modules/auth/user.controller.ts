@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from "express";
-import { existingUser, followUserService, getallUsers, getFollowingCount, getprofileService, LoginInUser, profileupdateService, ProxysetService, Searchbarservice, unfollowUserService } from "./user.service";
+import { existingUser, followUserService, getallUsers, getFollowingCount, getprofileService, getProxysetData, LoginInUser, profileupdateService, ProxysetService, Searchbarservice, unfollowUserService } from "./user.service";
 import { User } from "./user.model";
 
 
@@ -134,3 +134,10 @@ export const ProxysetController = async (req: Request, res: Response) => {
   return res.json(result);
 };
 
+
+
+export const getAllProxysetController = async (req: Request, res: Response) => {
+  const { id } = req.params; // or use req.query.id if appropriate
+  const result = await getProxysetData(id);
+  return res.json(result);
+};
