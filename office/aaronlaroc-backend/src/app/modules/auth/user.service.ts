@@ -397,9 +397,14 @@ export const getProxysetData = async (userId: string) => {
       },
       {
         $project: {
-          firstName: 1, 
-          lastName: 1,
-          proxysetDetails: 1,
+          _id: 0,
+          proxysetDetails: {
+            email: 1,
+            phoneNumber: 1,
+            imgUrl: 1,
+            role: 1,
+            followers: 1,
+          },
         },
       },
     ]);
