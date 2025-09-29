@@ -1,5 +1,5 @@
 import express from "express";
-import { followinguser, followUserController, GetAllProfile, GetProfileData, loginUser, ProfileUpdate, registerUser, Searchbar, unfollowUserController } from "./user.controller";
+import { followinguser, followUserController, GetAllProfile, GetProfileData, loginUser, ProfileUpdate, ProxysetController, registerUser, Searchbar, unfollowUserController } from "./user.controller";
 import { auth } from './../../middleware/auth.middleware';
 
 
@@ -32,12 +32,18 @@ router.post("/follow/:followedUserId",auth,followUserController)
 
 // unfollo user
 router.post("/unfollow/:followedUserId",auth,unfollowUserController)
-
-
-
+// get following user
 router.get("/following",auth,followinguser)
 
 
+
+
+
+
+
+
+// proxyset user
+router.post("/proxyset/:proxysetId",auth,ProxysetController)
 
 
 

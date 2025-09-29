@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from "express";
-import { existingUser, followUserService, getallUsers, getFollowingCount, getprofileService, LoginInUser, profileupdateService, Searchbarservice, unfollowUserService } from "./user.service";
+import { existingUser, followUserService, getallUsers, getFollowingCount, getprofileService, LoginInUser, profileupdateService, ProxysetService, Searchbarservice, unfollowUserService } from "./user.service";
 import { User } from "./user.model";
 
 
@@ -125,3 +125,12 @@ export const followinguser = async (req: Request, res: Response) => {
   const result = await getFollowingCount(req);
   return res.json(result);
 };
+
+
+
+
+export const ProxysetController = async (req: Request, res: Response) => {
+  const result = await ProxysetService(req);
+  return res.json(result);
+};
+
