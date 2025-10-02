@@ -15,7 +15,7 @@ const financialSchema =  new Schema<FINANCIAL>({
     userID: { type: Types.ObjectId,   ref: 'User', required: true},
 
     },{
-    timestamps: true
+    timestamps: true,versionKey: false
 })
 
 export const FinancialModel = model<FINANCIAL>("financial", financialSchema);
