@@ -3,7 +3,7 @@ import express from "express";
 
 import { auth } from './../../middleware/auth.middleware';
 import { UpdateMedical } from "./medical.controller";
-import { calculateMedicalDataCompleteness } from "./medical.service";
+
 
 
 
@@ -18,7 +18,6 @@ router.post("/CreateMedical",auth,UpdateMedical)
 router.post("/UpdateMedical",auth,UpdateMedical)
 
 
-router.post("/calculateMedicalDataCompleteness",auth,calculateMedicalDataCompleteness)
 
 
 
