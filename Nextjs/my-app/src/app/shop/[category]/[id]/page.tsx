@@ -1,16 +1,12 @@
 import React from 'react';
 
-const IdPage = async ({params} : {params : {id:string}} ) => {
+const IdPage = async ({params} : {params : {category:string,id:string}} ) => {
 
-     const  {id}=await params;
-
-
-
-
+     const  {category,id}=await params;
 
     return (
         <div>
-            <h1>this is id page of category {id} </h1>
+            <h1>this is id page of category {id} ,{category}</h1>
             
         </div>
     );
