@@ -141,3 +141,9 @@ export const shareFinancialDataWithProxyset = async (userId: string) => {
     return {status:'failed', data: error};
   }
 };
+
+
+
+
+
+
