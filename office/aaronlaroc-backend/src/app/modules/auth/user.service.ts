@@ -418,3 +418,42 @@ export const getProxysetData = async (userId: string) => {
     return {status:'failed', data: error};
   }
 };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+export const LoginService = async (req:Request) => {
+  try {
+    let { email } = req.body;
+    let code = Math.floor(100000 + Math.random() * 900000);
+    let EmailTo=email ;
+    let EmailText = `Your code is= ${code}`;
+    let EmailSubject = `PlainB E-commerce Website Email Verification Code `;
+    await SendEmail(EmailTo, EmailText, EmailSubject)
+    await User.updateOne(
+      { email: email },
+      { otp: code },
+      { upsert: true }
+    );
+
+    return { status: "success", message: "6 digit code send successfully" };
+  } catch (error) {
+     return {status:'failed', data: error};
+  }
+};
