@@ -47,6 +47,7 @@ const userSchema =  new Schema<IUser>({
     // match: /^\d{10}$/, 
     // Example pattern for 10-digit phone numbers
   },
+   otp:{type:String},
       imgUrl: {
         type: String,
          default: 'https://i.ibb.co/z5YHLV9/profile.png',

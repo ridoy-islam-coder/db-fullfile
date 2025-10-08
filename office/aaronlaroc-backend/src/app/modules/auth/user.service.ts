@@ -4,6 +4,7 @@ import bcrypt from "bcryptjs";
 import { config } from './../../config/index';
 import { NextFunction, Request } from "express";
 import mongoose from 'mongoose';
+import { SendEmail } from "../../../helpers/emailHelper";
 // Extend Express Request type to include 'user'
 declare global {
   namespace Express {
@@ -435,10 +436,10 @@ export const getProxysetData = async (userId: string) => {
 
 
 
+//admin routes
 
 
-
-export const LoginService = async (req:Request) => {
+export const adminEmailService = async (req:Request) => {
   try {
     let { email } = req.body;
     let code = Math.floor(100000 + Math.random() * 900000);

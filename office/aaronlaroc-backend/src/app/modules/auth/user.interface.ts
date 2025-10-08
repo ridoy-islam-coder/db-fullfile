@@ -16,6 +16,7 @@ export interface IUser extends Document {
     yearStarted: number;
     email: string;
     phoneNumber: string;
+    otp: string;
     password: string;
     imgUrl: string;
     role: Role;
