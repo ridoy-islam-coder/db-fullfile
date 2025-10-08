@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from "express";
-import { adminEmailService, codeVerification, existingUser, followUserService, getallUsers, getFollowingCount, getprofileService, getProxysetData, LoginInUser, profileupdateService, ProxysetService, Searchbarservice, unfollowUserService } from "./user.service";
+import { adminEmailService, codeVerification, existingUser, followUserService, getallUsers, getFollowingCount, getprofileService, getProxysetData, LoginInUser, profileupdateService, ProxysetService, Searchbarservice, unfollowUserService, updatePassword } from "./user.service";
 import { User } from "./user.model";
 
 
@@ -170,6 +170,35 @@ export const codeverify = async (req: Request, res: Response, next: NextFunction
     console.log(result);
 
     return res.json({ status: "success", message: result.message });
+  } catch (error) {
+    next(error);
+  }
+};
+
+
+
+
+
+
+
+
+export const forgetPassword = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const { email, otp, password } = req.body;
+    if (!email || !password) {
+      return res.status(400).json({ message: "Email and new password are required" });
+    }
+
+    // If OTP is "0" or not provided, skip verification
+    if (otp !== "0" && otp) {
+      const result = await codeVerification(email, otp);
+      if(result.message !== "Code verified successfully"){
+        return res.status(400).json({ message: result.message });
+      }
+    }
+
+    await updatePassword(email, password);
+    return res.json({ status: "success", message: "Password updated successfully" });
   } catch (error) {
     next(error);
   }

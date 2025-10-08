@@ -1,5 +1,5 @@
 import express from "express";
-import { AdminEmail, codeverify, followinguser, followUserController, GetAllProfile, getAllProxysetController, GetProfileData, loginUser, ProfileUpdate, ProxysetController, registerUser, Searchbar, unfollowUserController } from "./user.controller";
+import { AdminEmail, codeverify, followinguser, followUserController, forgetPassword, GetAllProfile, getAllProxysetController, GetProfileData, loginUser, ProfileUpdate, ProxysetController, registerUser, Searchbar, unfollowUserController } from "./user.controller";
 import { auth } from './../../middleware/auth.middleware';
 
 
@@ -39,6 +39,20 @@ router.get("/following",auth,followinguser)
 
 
 
+// proxyset user
+router.post("/proxyset/:proxysetId",auth,ProxysetController)
+router.get("/getAllProxyset/:id",auth,getAllProxysetController)
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -61,8 +75,10 @@ router.post("/AdminEmail",AdminEmail)
 router.post("/codeverify",codeverify)
 
 
+
+
 // codeverify  routes
-router.post("/codeverify",codeverify)
+router.post("/forgetPassword",forgetPassword)
 
 
 
@@ -71,10 +87,6 @@ router.post("/codeverify",codeverify)
 
 
 
-
-// proxyset user
-router.post("/proxyset/:proxysetId",auth,ProxysetController)
-router.get("/getAllProxyset/:id",auth,getAllProxysetController)
 
 
 
