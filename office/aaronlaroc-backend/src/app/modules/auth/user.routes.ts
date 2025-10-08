@@ -42,6 +42,30 @@ router.get("/following",auth,followinguser)
 
 
 
+
+
+//admin routes
+
+// admin Registration 
+router.post("/adminregisterUser",registerUser)
+
+// admin  Login
+router.post("/adminlogin",loginUser)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // proxyset user
 router.post("/proxyset/:proxysetId",auth,ProxysetController)
 router.get("/getAllProxyset/:id",auth,getAllProxysetController)
