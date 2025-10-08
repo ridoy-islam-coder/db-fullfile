@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from "express";
-import { adminEmailService, existingUser, followUserService, getallUsers, getFollowingCount, getprofileService, getProxysetData, LoginInUser, profileupdateService, ProxysetService, Searchbarservice, unfollowUserService } from "./user.service";
+import { adminEmailService, codeVerification, existingUser, followUserService, getallUsers, getFollowingCount, getprofileService, getProxysetData, LoginInUser, profileupdateService, ProxysetService, Searchbarservice, unfollowUserService } from "./user.service";
 import { User } from "./user.model";
 
 
@@ -151,4 +151,26 @@ export const getAllProxysetController = async (req: Request, res: Response) => {
 export const  AdminEmail = async (req: Request, res: Response) => {
   const result = await adminEmailService(req);
   return res.json(result);
+};
+
+
+
+
+
+
+export const codeverify = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const { email, otp } = req.body;
+
+    if (!email || !otp) {
+      return res.status(400).json({ message: "Email and otp are required" });
+    }
+
+    const result = await codeVerification(email, otp);
+    console.log(result);
+
+    return res.json({ status: "success", message: result.message });
+  } catch (error) {
+    next(error);
+  }
 };

@@ -458,3 +458,23 @@ export const adminEmailService = async (req:Request) => {
      return {status:'failed', data: error};
   }
 };
+
+
+
+
+
+
+
+export const codeVerification = async (email: string, code: string) => {
+  // Check if user exists
+  const user = await User.findOne({ email:email, otp: code });
+  if (!user) {
+    throw new Error("User not found");
+  }
+
+  if (user.otp !== code) {
+    throw new Error("Invalid code");
+  }
+
+  return { message: "Code verified successfully" };
+};

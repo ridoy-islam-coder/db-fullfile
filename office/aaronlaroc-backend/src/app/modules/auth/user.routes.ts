@@ -1,5 +1,5 @@
 import express from "express";
-import { AdminEmail, followinguser, followUserController, GetAllProfile, getAllProxysetController, GetProfileData, loginUser, ProfileUpdate, ProxysetController, registerUser, Searchbar, unfollowUserController } from "./user.controller";
+import { AdminEmail, codeverify, followinguser, followUserController, GetAllProfile, getAllProxysetController, GetProfileData, loginUser, ProfileUpdate, ProxysetController, registerUser, Searchbar, unfollowUserController } from "./user.controller";
 import { auth } from './../../middleware/auth.middleware';
 
 
@@ -49,16 +49,20 @@ router.get("/following",auth,followinguser)
 // admin Registration 
 router.post("/adminregister",registerUser)
 
-// admin  Login
+// admin  routes
 router.post("/adminlogin",loginUser)
 
 
-// admin  Login
+// admin  routes
 router.post("/AdminEmail",AdminEmail)
 
 
+// codeverify  routes
+router.post("/codeverify",codeverify)
 
 
+// codeverify  routes
+router.post("/codeverify",codeverify)
 
 
 
