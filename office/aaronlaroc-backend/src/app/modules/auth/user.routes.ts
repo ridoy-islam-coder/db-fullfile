@@ -53,6 +53,8 @@ router.post("/adminregisterUser",registerUser)
 router.post("/adminlogin",loginUser)
 
 
+// admin  Login
+router.post("/adminlogin",loginUser)
 
 
 
