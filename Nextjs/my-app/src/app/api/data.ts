@@ -1,7 +1,7 @@
 
 
 
-   const data = 
+  export const data = 
      [
       {
         id: 11, // 10 items were skipped
