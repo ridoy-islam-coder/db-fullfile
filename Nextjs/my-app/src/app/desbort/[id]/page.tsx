@@ -3,7 +3,7 @@ import React from 'react';
 
 const  DesbordDetiles = async ({ params }: { params: { id: string } }) => {
      
-const { id } = params;
+const { id } = await params;
 
 
 
