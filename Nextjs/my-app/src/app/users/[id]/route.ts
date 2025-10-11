@@ -1,5 +1,6 @@
 import { data } from "@/app/api/data";
-import page from './../../components/navbar/page';
+export const dynamic = 'force-dynamic';
+export const revalidate = 20;
 
 export async function GET(_request: Request, { params }: { params: { id: string } } ) {
     const {id}=await params;
