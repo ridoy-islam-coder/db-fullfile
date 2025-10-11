@@ -21,3 +21,17 @@ export async function   PATCH(request: Request, { params }: { params: { id: stri
     }
 
 }
+
+
+
+
+export async function DELETE(request: Request, { params }: { params: { id: string } } ) {
+     const {id}=await params;
+    const userIndex = data.findIndex((user) => user.id === parseInt(id));
+    if (userIndex !== -1) {
+        const deletedUser = data.splice(userIndex, 1);
+        return Response.json(deletedUser[0]);
+    } else {
+        return new Response("User not found", { status: 404 });
+    }
+}

@@ -12,3 +12,6 @@ export async function POST(request: Request) {
     data.push(newData);
     return Response.json(newData);
 }
+
+
+
