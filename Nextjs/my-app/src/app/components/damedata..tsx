@@ -10,8 +10,8 @@ const DamedataPage =async () => {
 
     return (
         <div>
-            <h1>{data.firstName} </h1>
-            <p>{data.lastName}</p>
+            <h1>{data.limit} </h1>
+            <p>{data.total}</p>
             <button className="btn btn-primary">Buy Now</button>
         </div>
     );

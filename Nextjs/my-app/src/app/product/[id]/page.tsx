@@ -1,6 +1,7 @@
+import DamedataPage from '@/app/components/damedata.';
 import { assert } from 'console';
-import React from 'react';
-import DamedataPage from './../../components/damedata';
+import React, { Suspense } from 'react';
+
 
 
 
@@ -30,7 +31,10 @@ const ProductDatilesPage =async ({params}:{params:{id:string}}) => {
 
 
             <div>
-             <DamedataPage />
+             <Suspense fallback={<div>Loading...</div>}>
+              
+                <DamedataPage/>
+             </Suspense>
 
             </div>
         </div>
