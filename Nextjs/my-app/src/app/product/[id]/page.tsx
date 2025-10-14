@@ -1,5 +1,6 @@
 import { assert } from 'console';
 import React from 'react';
+import DamedataPage from './../../components/damedata';
 
 
 
@@ -22,7 +23,14 @@ const ProductDatilesPage =async ({params}:{params:{id:string}}) => {
 
             <div className="mt-8 bg-fuchsia-500 p-4 rounded">
                 <h2>{product.title}</h2>
-                <p>No reviews yet.</p>
+                <p>{product.body}</p>
+
+            </div>
+
+
+
+            <div>
+             <DamedataPage />
 
             </div>
         </div>
