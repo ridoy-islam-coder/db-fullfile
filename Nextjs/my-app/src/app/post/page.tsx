@@ -1,10 +1,12 @@
 import React from 'react';
-import ClientPost from '../components/ClientPost';
+import ClientPostPage from '../components/ClientPost';
+
+
 
 const PostPage = () => {
     return (
         <div>
-            <ClientPost/>
+            <ClientPostPage/>
         </div>
     );
 };
