@@ -2,6 +2,7 @@
 
 //  "use client";
  import React from "react";
+import ServerPage from "../components/ServerPage";
 
 
 const HomePage = () => {
@@ -12,6 +13,7 @@ const HomePage = () => {
             <h1>this is home page </h1>
             {/* <p>Count: {count}</p>
             <button className="btn btn-primary" onClick={() => setCount(count + 1)}>Increment</button> */}
+            <ServerPage/>
         </div>
     );
 };
