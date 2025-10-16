@@ -1,14 +1,15 @@
 import DamedataPage from '@/app/components/damedata.';
-import { assert } from 'console';
+import axios from 'axios';
+
 import React, { Suspense } from 'react';
 
 
 
 
   const fetchProductById=async(id:string)=>{
-    const res=await fetch(`https://dummyjson.com/posts/${id}`,{cache:'no-store'});
-    const data=await res.json();
-    return data;
+    const res=await axios(`https://dummyjson.com/posts/${id}`,);
+    
+    return res.data;
   }
 
 
