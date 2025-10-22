@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from "express";
-import { adminEmailService, codeVerification, deleteUserService, existingUser,  getallUsers, getNewUsersLast10DaysService, getprofileService, getProxysetData, getUserFullProfileService, getUserList, LoginInUser, profileupdateService, ProxysetService, Searchbarservice,  updatePassword, updateUserService } from "./user.service";
+import { adminEmailService, codeVerification, deleteUserService, existingUser,  getallUsers, getNewUsersLast10DaysService, getprofileService, getProxysetData, getUserFullProfileService, getUserList, LoginInUser, profileupdateService, ProxysetService, Searchbarservice,  updatePassword, updateUserService, UserAnalysisService } from "./user.service";
 
 
 
@@ -306,3 +306,42 @@ export const getNewUsersLast10Days = async (req: Request, res: Response) => {
     res.json(result);
 
     }
+
+
+
+    
+export class UserAnalysisController {
+  static async getAnalysis(req: Request, res: Response) {
+    try {
+      const { type } = req.query;
+
+      let result;
+      switch (type) {
+        case "daily":
+          result = await UserAnalysisService.getDailyAnalysis();
+          break;
+        case "monthly":
+          result = await UserAnalysisService.getMonthlyAnalysis();
+          break;
+        case "yearly":
+          result = await UserAnalysisService.getYearlyAnalysis();
+          break;
+        default:
+          return res.status(400).json({
+            success: false,
+            message: "Invalid type. Use ?type=daily | monthly | yearly",
+          });
+      }
+
+      res.json({
+        success: true,
+        type,
+        labels: result.labels,
+        data: result.data,
+      });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ success: false, message: "Server error" });
+    }
+  }
+}

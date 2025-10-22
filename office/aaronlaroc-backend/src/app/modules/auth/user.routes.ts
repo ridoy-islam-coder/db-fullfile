@@ -1,5 +1,5 @@
 import express from "express";
-import { AdminEmail, alldatapercentage, codeverify,   deleteUserController,   forgetPassword, GetAllProfile, getAllProxysetController, getNewUsersLast10Days, GetProfileData, loginUser, ProfileUpdate, ProxysetController, registerUser, Searchbar, updateUserController, UserList,  } from "./user.controller";
+import { AdminEmail, alldatapercentage, codeverify,   deleteUserController,   forgetPassword, GetAllProfile, getAllProxysetController, getNewUsersLast10Days, GetProfileData, loginUser, ProfileUpdate, ProxysetController, registerUser, Searchbar, updateUserController, UserAnalysisController, UserList,  } from "./user.controller";
 import { auth, isAdmin } from './../../middleware/auth.middleware';
 
 
@@ -86,8 +86,8 @@ router.put("/updateUser/:id",auth,isAdmin,updateUserController)
 
 // Delete User by Admin
 router.delete("/deleteUser/:id",auth,isAdmin,deleteUserController)
-
-
+// User Analysis
+router.get("/users/analysis", auth,isAdmin,UserAnalysisController.getAnalysis);
 
 
 
