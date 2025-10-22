@@ -517,3 +517,17 @@ export const getUserList = async (
 
 
 
+
+
+
+
+export const getNewUsersLast10DaysService = async () => {
+  const tenDaysAgo = new Date();
+  tenDaysAgo.setDate(tenDaysAgo.getDate() - 10);
+
+  const count = await User.countDocuments({
+    createdAt: { $gte: tenDaysAgo },
+  });
+
+  return count;
+};
