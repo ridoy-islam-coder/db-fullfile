@@ -572,6 +572,95 @@ export const deleteUserService = async (req:Request) => {
 
 
 
+// export class UserAnalysisService {
+//   // 🔹 Daily data (current month)
+//   static async getDailyAnalysis() {
+//     const now = new Date();
+//     const year = now.getFullYear();
+//     const month = now.getMonth();
+//     const startOfMonth = new Date(year, month, 1);
+//     const startOfNextMonth = new Date(year, month + 1, 1);
+
+//     const data = await User.aggregate([
+//       {
+//         $match: {
+//           createdAt: {
+//             $gte: startOfMonth,
+//             $lt: startOfNextMonth,
+//           },
+//         },
+//       },
+//       {
+//         $group: {
+//           _id: { $dayOfMonth: "$createdAt" },
+//           count: { $sum: 1 },
+//         },
+//       },
+//       { $sort: { "_id": 1 } },
+//     ]);
+
+//     const daysInMonth = new Date(year, month + 1, 0).getDate();
+//     const dailyData = Array.from({ length: daysInMonth }, (_, i) => {
+//       const day = data.find((d) => d._id === i + 1);
+//       return day ? day.count : 0;
+//     });
+
+//     const labels = Array.from({ length: daysInMonth }, (_, i) => `${i + 1}`);
+
+//     return { labels, data: dailyData };
+//   }
+
+//   // 🔹 Monthly data (current year)
+//   static async getMonthlyAnalysis() {
+//     const currentYear = new Date().getFullYear();
+
+//     const data = await User.aggregate([
+//       {
+//         $match: {
+//           createdAt: {
+//             $gte: new Date(`${currentYear}-01-01T00:00:00.000Z`),
+//             $lt: new Date(`${currentYear + 1}-01-01T00:00:00.000Z`),
+//           },
+//         },
+//       },
+//       {
+//         $group: {
+//           _id: { $month: "$createdAt" },
+//           count: { $sum: 1 },
+//         },
+//       },
+//       { $sort: { "_id": 1 } },
+//     ]);
+
+//     const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+//     const monthlyData = months.map((_, i) => {
+//       const month = data.find((d) => d._id === i + 1);
+//       return month ? month.count : 0;
+//     });
+
+//     return { labels: months, data: monthlyData };
+//   }
+
+//   // 🔹 Yearly data (all years)
+//   static async getYearlyAnalysis() {
+//     const data = await User.aggregate([
+//       {
+//         $group: {
+//           _id: { $year: "$createdAt" },
+//           count: { $sum: 1 },
+//         },
+//       },
+//       { $sort: { "_id": 1 } },
+//     ]);
+
+//     const years = data.map((d) => d._id.toString());
+//     const yearlyData = data.map((d) => d.count);
+
+//     return { labels: years, data: yearlyData };
+//   }
+// }
+
+
 export class UserAnalysisService {
   // 🔹 Daily data (current month)
   static async getDailyAnalysis() {
@@ -600,12 +689,19 @@ export class UserAnalysisService {
     ]);
 
     const daysInMonth = new Date(year, month + 1, 0).getDate();
+
+    // Daily data fill (if no data for a day = 0)
     const dailyData = Array.from({ length: daysInMonth }, (_, i) => {
       const day = data.find((d) => d._id === i + 1);
       return day ? day.count : 0;
     });
 
-    const labels = Array.from({ length: daysInMonth }, (_, i) => `${i + 1}`);
+    // 🔹 Weekday names (7 days cycle)
+    const weekdays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+    const labels = Array.from({ length: daysInMonth }, (_, i) => {
+      const date = new Date(year, month, i + 1);
+      return weekdays[date.getDay()]; // day name for each date
+    });
 
     return { labels, data: dailyData };
   }
