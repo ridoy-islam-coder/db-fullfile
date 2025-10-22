@@ -3,8 +3,11 @@ import bcrypt from "bcryptjs";
  import jwt from "jsonwebtoken";
 import { config } from './../../config/index';
 import { NextFunction, Request } from "express";
-import mongoose from 'mongoose';
+import mongoose, { Types } from 'mongoose';
 import { SendEmail } from "../../../helpers/emailHelper";
+
+// Define PipelineStage type for aggregation pipelines (use a more specific type/import if available)
+type PipelineStage = any;
 // Extend Express Request type to include 'user'
 declare global {
   namespace Express {
@@ -137,132 +140,14 @@ export const Searchbarservice = async (searchTerm:string) => {
 
 
 
-export const followUserService = async (req: Request) => {
-  try {
-    const userId = req.user?.id; 
-    const followedUserId = req.params.followedUserId;
-
-
-
-
-    if (!userId || !followedUserId || !mongoose.Types.ObjectId.isValid(userId) || !mongoose.Types.ObjectId.isValid(followedUserId)) {
-      return { status: 'failed', message: 'Invalid user or followed user ID' };
-    }
-
-    if (userId === followedUserId) {
-      return { status: 'failed', message: "You cannot follow yourself" };
-    }
-
-    const followedUserObjectId = new mongoose.Types.ObjectId(followedUserId);
-
-  
-    const user = await User.findById(userId);
-    if (!user) {
-      return { status: 'failed', message: 'User not found' };
-    }
-
-
-    const followedUser = await User.findById(followedUserObjectId);
-    if (!followedUser) {
-      return { status: 'failed', message: "Followed user not found" };
-    }
-
-   
-    if (user.followers.includes(followedUserObjectId)) {
-      return { status: 'failed', message: "You are already following this user" };
-    }
-
- 
-    user.followers.push(followedUserObjectId);
-
- 
-    await user.save();
-
-    return { status: 'success', message: 'User followed successfully', data: user };
-  } catch (error) {
-      return {status:'failed', data: error};
-  }
-};
-
-
-
-
-// Unfollow API
-export const unfollowUserService = async (req: Request) => {
-  try {
-    const userId = req.user?.id; 
-    const followedUserId = req.params.followedUserId;
-
- 
-    if (!userId || !followedUserId || !mongoose.Types.ObjectId.isValid(userId) || !mongoose.Types.ObjectId.isValid(followedUserId)) {
-     
-         return {  status: 'failed', message: 'Invalid user or followed user ID'  };
-    }
-
-  
-    if (userId === followedUserId) {
-      
-       return { status: 'failed', message: "You cannot unfollow yourself"  };
-    }
-
-    const user = await User.findById(userId);
-    if (!user) {
-            return { status: 'failed', message: 'User not found' };
-    }
-
-    const followedUserObjectId = new mongoose.Types.ObjectId(followedUserId);
-
-    const followedUser = await User.findById(followedUserObjectId);
-    if (!followedUser) {
-      
-      return { status: 'failed', message: "Followed user not found" };
-    }
-
-    if (!user.followers.includes(followedUserObjectId)) {
-
-       return {  status: 'failed', message: "You are not following this user"  };
-    }
-
-    user.followers = user.followers.filter(follower => follower.toString() !== followedUserId);
-
-    await user.save();
-   return { status: 'success',  message: 'User unfollowed successfully', data: user };
-
-  } catch (error) {
-    console.error(error);
-   return {status:'failed', data: error};
-  }
-};
 
 
 
 
 
 
-// Get the count of users the current user is following
-export const getFollowingCount = async (req: Request) => {
-  try {
-    const userId = req.user?.id;  
-    if (!userId) {
-    
-       return { status: 'failed', message: 'User not authenticated'  };
-    }
 
-  
-    const user = await User.findById(userId);
-    if (!user) {
-      
-       return { status: 'failed',  message: 'User not found'  };
-    }
 
-    // ফলো করা ইউজারদের সংখ্যা বের করা হচ্ছে
-    const followingCount = user.followers.length;
-      return {  status: 'success', message: `You are following ${followingCount} users`,count:followingCount };
-  } catch (error) {
-    console.error(error);
-      return {status:'failed', data: error};
-  }
-};
 
 
 
@@ -436,6 +321,85 @@ export const getProxysetData = async (userId: string) => {
 
 
 
+
+
+
+
+export const getUserFullProfileService = async (userId: string) => {
+  const result = await User.aggregate([
+    {
+      $match: { _id: new Types.ObjectId(userId) },
+    },
+    {
+      $lookup: {
+        from: "financials",
+        localField: "_id",
+        foreignField: "userID",
+        as: "financialInfo",
+      },
+    },
+    {
+      $lookup: {
+        from: "socialinfos",
+        localField: "_id",
+        foreignField: "userID",
+        as: "socialInfo",
+      },
+    },
+    {
+      $lookup: {
+        from: "homeautos",
+        localField: "_id",
+        foreignField: "userID",
+        as: "homeAutoInfo",
+      },
+    },
+
+     {
+      $lookup: {
+        from: "medicals",
+        localField: "_id",
+        foreignField: "userID",
+        as: "medicalsInfo",
+      },
+    },
+
+
+    {
+      $project: {
+        _id: 0,
+        name: 1,
+        email: 1,
+        financialPercentage: { $arrayElemAt: ["$financialInfo.financialPercentage", 0] },
+        socialInfo: { $arrayElemAt: ["$socialInfo.socialInfoPercentage", 0] },
+        homeAutoInfo: { $arrayElemAt: ["$homeAutoInfo.homeautoPercentage", 0] },
+        medicalsInfo: { $arrayElemAt: ["$medicalsInfo.medicalsPercentage", 0] },
+      },
+    },
+  ]);
+
+  return result[0] || null;
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 //admin routes
 
 
@@ -494,3 +458,62 @@ export const updatePassword = async (email: string, password: string) => {
   }
   return { message: "Password updated successfully" };
 };
+
+
+
+
+
+
+export const getUserList = async (
+  pageNo: number,
+  perPage: number,
+  searchKeyword: string
+) => {
+  const skipRow = (pageNo - 1) * perPage;
+  let data;
+
+  if (searchKeyword !== "0") {
+    const searchRegex = { $regex: searchKeyword, $options: "i" };
+    const searchQuery = {
+      $or: [
+        { firstName: searchRegex },
+        { lastName: searchRegex },
+        { email: searchRegex },
+        { phoneNumber: searchRegex },
+        { company: searchRegex },
+        
+      ],
+    };
+
+    const pipeline: PipelineStage[] = [
+      {
+        $facet: {
+          Total: [{ $match: searchQuery }, { $count: "count" }],
+          Rows: [{ $match: searchQuery }, { $skip: skipRow }, { $limit: perPage }],
+        },
+      },
+    ];
+
+    data = await User.aggregate(pipeline);
+  } else {
+    const pipeline: PipelineStage[] = [
+      {
+        $facet: {
+          Total: [{ $count: "count" }],
+          Rows: [{ $skip: skipRow }, { $limit: perPage }],
+        },
+      },
+    ];
+
+    data = await User.aggregate(pipeline);
+  }
+
+  return data;
+};
+
+
+
+
+
+
+

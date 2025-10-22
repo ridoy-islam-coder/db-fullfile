@@ -6,6 +6,7 @@ export interface FINANCIAL extends Document{
   retirementAccount: string;
   currentAssets: string;
   debt: string;
+  financialPercentage: number;
   userID: IUser | Types.ObjectId; 
   createdAt: Date;
   updatedAt: Date;

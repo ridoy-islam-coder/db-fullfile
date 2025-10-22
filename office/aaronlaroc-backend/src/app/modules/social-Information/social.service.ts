@@ -44,14 +44,17 @@ export const SocialInformationService = async (req: Request) => {
     // Update medical data and include completeness percentage
     const updatedMedicalData = await SocialInfoModel.findOneAndUpdate(
       { userID: user_id },
-      { ...requestBody, completenessPercentage },
+         { 
+        ...requestBody, 
+        socialInfoPercentage: completenessPercentage  // ✅ fixed
+      },
       { upsert: true, new: true }
     );
 
     return {
       status: "success",
       message: `Medical data updated successfully ${completenessPercentage.toFixed(2)}%`,
-      completenessPercentage: completenessPercentage.toFixed(2),  // Percentage result
+      socialInfoPercentage: completenessPercentage.toFixed(2),  // Percentage result
       updatedMedicalData
     };
   } catch (error) {

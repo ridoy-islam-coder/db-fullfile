@@ -58,6 +58,7 @@ const homeautoSchema =  new Schema<IHomeVehicle>({
       enum: HOME_INSURANCE_TYPE,
       default: undefined,
     },
+    homeautoPercentage: { type: Number },
     userID: { type: Types.ObjectId,   ref: 'User', required: true},
 
     },{

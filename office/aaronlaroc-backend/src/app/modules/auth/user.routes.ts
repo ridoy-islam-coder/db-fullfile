@@ -1,6 +1,6 @@
 import express from "express";
-import { AdminEmail, codeverify, followinguser, followUserController, forgetPassword, GetAllProfile, getAllProxysetController, GetProfileData, loginUser, ProfileUpdate, ProxysetController, registerUser, Searchbar, unfollowUserController } from "./user.controller";
-import { auth } from './../../middleware/auth.middleware';
+import { AdminEmail, alldatapercentage, codeverify,   forgetPassword, GetAllProfile, getAllProxysetController, GetProfileData, loginUser, ProfileUpdate, ProxysetController, registerUser, Searchbar, UserList,  } from "./user.controller";
+import { auth, isAdmin } from './../../middleware/auth.middleware';
 
 
 
@@ -26,14 +26,10 @@ router.get("/GetAllProfile",auth,GetAllProfile)
 // Get All User Profile
 router.post("/Searchbar/:searchTerm",auth,Searchbar)
 
-// follo user
-router.post("/follow/:followedUserId",auth,followUserController)
+router.get("/alldata-percentage/:userId",auth, alldatapercentage);
 
 
-// unfollo user
-router.post("/unfollow/:followedUserId",auth,unfollowUserController)
-// get following user
-router.get("/following",auth,followinguser)
+
 
 
 
@@ -76,9 +72,11 @@ router.post("/codeverify",codeverify)
 
 
 
-
 // codeverify  routes
 router.post("/forgetPassword",forgetPassword)
+
+router.get("/list/:pageNo/:perPage/:searchKeyword",auth,isAdmin, UserList);
+
 
 
 

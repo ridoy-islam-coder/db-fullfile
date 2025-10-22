@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from "express";
-import { adminEmailService, codeVerification, existingUser, followUserService, getallUsers, getFollowingCount, getprofileService, getProxysetData, LoginInUser, profileupdateService, ProxysetService, Searchbarservice, unfollowUserService, updatePassword } from "./user.service";
-import { User } from "./user.model";
+import { adminEmailService, codeVerification, existingUser,  getallUsers, getprofileService, getProxysetData, getUserFullProfileService, getUserList, LoginInUser, profileupdateService, ProxysetService, Searchbarservice,  updatePassword } from "./user.service";
+
 
 
 
@@ -108,23 +108,10 @@ export const  Searchbar=async (req:Request,res:Response)=> {
 
 
 
-export const followUserController = async (req: Request, res: Response) => {
-  const result = await followUserService(req);
-  return res.json(result);
-};
 
 
 
-export const unfollowUserController = async (req: Request, res: Response) => {
-  const result = await unfollowUserService(req);
-  return res.json(result);
-};
 
-
-export const followinguser = async (req: Request, res: Response) => {
-  const result = await getFollowingCount(req);
-  return res.json(result);
-};
 
 
 
@@ -141,6 +128,61 @@ export const getAllProxysetController = async (req: Request, res: Response) => {
   const result = await getProxysetData(id);
   return res.json(result);
 };
+
+
+
+
+
+
+
+
+
+
+export const alldatapercentage = async (req: Request, res: Response) => {
+  try {
+    const { userId } = req.params;
+
+    const userProfile = await getUserFullProfileService(userId);
+
+    if (!userProfile) {
+      return res.status(404).json({
+        success: false,
+        message: "User not found",
+      });
+    }
+
+    return res.status(200).json({
+      success: true,
+      data: userProfile,
+    });
+  } catch (error) {
+    console.error("Error fetching user profile:", error);
+    return res.status(500).json({
+      success: false,
+      message: "Internal Server Error",
+    });
+  }
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -201,5 +243,23 @@ export const forgetPassword = async (req: Request, res: Response, next: NextFunc
     return res.json({ status: "success", message: "Password updated successfully" });
   } catch (error) {
     next(error);
+  }
+};
+
+
+
+
+
+export const UserList = async (req: Request, res: Response): Promise<void> => {
+  try {
+    const pageNo = Number(req.params.pageNo);
+    const perPage = Number(req.params.perPage);
+    const searchKeyword = req.params.searchKeyword;
+
+    const data = await getUserList(pageNo, perPage, searchKeyword);
+
+    res.status(200).json({ status: "success", data });
+  } catch (err: any) {
+    res.status(500).json({ message: err.message });
   }
 };
