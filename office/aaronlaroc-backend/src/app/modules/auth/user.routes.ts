@@ -1,5 +1,5 @@
 import express from "express";
-import { AdminEmail, alldatapercentage, codeverify,   forgetPassword, GetAllProfile, getAllProxysetController, GetProfileData, loginUser, ProfileUpdate, ProxysetController, registerUser, Searchbar, UserList,  } from "./user.controller";
+import { AdminEmail, alldatapercentage, codeverify,   forgetPassword, GetAllProfile, getAllProxysetController, getNewUsersLast10Days, GetProfileData, loginUser, ProfileUpdate, ProxysetController, registerUser, Searchbar, UserList,  } from "./user.controller";
 import { auth, isAdmin } from './../../middleware/auth.middleware';
 
 
@@ -75,7 +75,10 @@ router.post("/codeverify",codeverify)
 // codeverify  routes
 router.post("/forgetPassword",forgetPassword)
 
-router.get("/list/:pageNo/:perPage/:searchKeyword",auth,isAdmin, UserList);
+// User List with Pagination
+router.get("/pagenationlist/:pageNo/:perPage/:searchKeyword",auth,isAdmin, UserList);
+// New Users in Last 10 Days
+router.get("/new-user-last",auth,isAdmin, getNewUsersLast10Days);
 
 
 

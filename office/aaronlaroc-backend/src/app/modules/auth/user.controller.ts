@@ -263,3 +263,27 @@ export const UserList = async (req: Request, res: Response): Promise<void> => {
     res.status(500).json({ message: err.message });
   }
 };
+
+
+
+
+
+
+
+export const getNewUsersLast10Days = async (req: Request, res: Response) => {
+  try {
+    const newUserCount = await getNewUsersLast10DaysService();
+
+    return res.status(200).json({
+      success: true,
+      message: "Last 10 days new user count fetched successfully",
+      count: newUserCount,
+    });
+  } catch (error) {
+    console.error("Error counting last 10 days users:", error);
+    return res.status(500).json({
+      success: false,
+      message: "Server error while counting last 10 days users",
+    });
+  }
+};
