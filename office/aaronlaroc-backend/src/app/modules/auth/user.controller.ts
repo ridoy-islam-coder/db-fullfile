@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from "express";
-import { adminEmailService, codeVerification, existingUser,  getallUsers, getNewUsersLast10DaysService, getprofileService, getProxysetData, getUserFullProfileService, getUserList, LoginInUser, profileupdateService, ProxysetService, Searchbarservice,  updatePassword, updateUserService } from "./user.service";
+import { adminEmailService, codeVerification, deleteUserService, existingUser,  getallUsers, getNewUsersLast10DaysService, getprofileService, getProxysetData, getUserFullProfileService, getUserList, LoginInUser, profileupdateService, ProxysetService, Searchbarservice,  updatePassword, updateUserService } from "./user.service";
 
 
 
@@ -295,6 +295,14 @@ export const getNewUsersLast10Days = async (req: Request, res: Response) => {
 
     export const updateUserController = async (req:Request,res:Response) => {
     let result = await updateUserService(req);
+    res.json(result);
+
+    }
+
+
+    
+    export const deleteUserController = async (req:Request,res:Response) => {
+    let result = await deleteUserService(req);
     res.json(result);
 
     }
