@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from "express";
-import { adminEmailService, codeVerification, existingUser,  getallUsers, getprofileService, getProxysetData, getUserFullProfileService, getUserList, LoginInUser, profileupdateService, ProxysetService, Searchbarservice,  updatePassword } from "./user.service";
+import { adminEmailService, codeVerification, existingUser,  getallUsers, getNewUsersLast10DaysService, getprofileService, getProxysetData, getUserFullProfileService, getUserList, LoginInUser, profileupdateService, ProxysetService, Searchbarservice,  updatePassword } from "./user.service";
 
 
 
