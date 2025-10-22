@@ -12,6 +12,7 @@ const financialSchema =  new Schema<FINANCIAL>({
     retirementAccount: { type: String, required: true },
     currentAssets: { type: String, required: true },
     debt: { type: String, required: true },
+    financialPercentage: { type: Number },
     userID: { type: Types.ObjectId,   ref: 'User', required: true},
 
     },{

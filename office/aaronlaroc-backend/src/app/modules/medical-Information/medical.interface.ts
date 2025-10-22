@@ -6,6 +6,7 @@ export interface MEDICAL extends Document{
      supplementalInsurance: string;
      medications: string;
      knownAilments: string;
+     medicalsPercentage: number;
     userID: IUser | Types.ObjectId; 
     createdAt: Date;
     updatedAt: Date;

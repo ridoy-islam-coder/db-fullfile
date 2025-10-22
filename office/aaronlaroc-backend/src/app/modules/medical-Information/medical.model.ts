@@ -23,6 +23,8 @@ const medicalSchema =  new Schema<MEDICAL>({
       type: String,
      
     },
+    medicalsPercentage: { type: Number },
+    
     userID: { type: Types.ObjectId,   ref: 'User', required: true},
 
     },{

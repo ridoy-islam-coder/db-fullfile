@@ -24,6 +24,7 @@ const SocialInfoSchema = new Schema<ISocialInfo>(
       trim: true,
       default: undefined,
     },
+    socialInfoPercentage: { type: Number },
   },
   { timestamps: true, versionKey: false }
 );

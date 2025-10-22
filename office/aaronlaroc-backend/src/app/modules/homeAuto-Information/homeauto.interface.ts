@@ -25,7 +25,8 @@ export interface IHomeVehicle extends Document {
   // Vehicle
   vehicleOwnership?: TVehicleOwnership;   // Own, Lease, or No Vehicle
   vehicleMakeModel?: string;              // Example: "Toyota Corolla 2022"
-  hasCarInsurance?: boolean;              // Yes/No
+  hasCarInsurance?: boolean; 
+  homeautoPercentage: number;             // Yes/No
   carInsuranceProvider?: string;          // Optional extra detail
 
   // ATV/Boat/Motorcycle
