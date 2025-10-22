@@ -531,3 +531,20 @@ export const getNewUsersLast10DaysService = async () => {
 
   return count;
 };
+
+
+
+
+
+export const updateUserService = async (req:Request) => {
+  try {
+       let user_id=req.params.id;
+        let requestBody = req.body;
+     
+        await User.updateOne({_id: user_id}, requestBody, {upsert: true})
+        return ({status: true ,message:"User Update successfully"})
+
+  } catch (error) {
+    return {status: false, data: error};
+  }
+}

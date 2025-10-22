@@ -1,5 +1,5 @@
 import express from "express";
-import { AdminEmail, alldatapercentage, codeverify,   forgetPassword, GetAllProfile, getAllProxysetController, getNewUsersLast10Days, GetProfileData, loginUser, ProfileUpdate, ProxysetController, registerUser, Searchbar, UserList,  } from "./user.controller";
+import { AdminEmail, alldatapercentage, codeverify,   forgetPassword, GetAllProfile, getAllProxysetController, getNewUsersLast10Days, GetProfileData, loginUser, ProfileUpdate, ProxysetController, registerUser, Searchbar, updateUserController, UserList,  } from "./user.controller";
 import { auth, isAdmin } from './../../middleware/auth.middleware';
 
 
@@ -81,8 +81,8 @@ router.get("/pagenationlist/:pageNo/:perPage/:searchKeyword",auth,isAdmin, UserL
 router.get("/new-user-last",auth,isAdmin, getNewUsersLast10Days);
 
 
-
-
+// Update User by Admin
+router.put("/updateUser/:id",auth,isAdmin,updateUserController)
 
 
 

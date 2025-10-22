@@ -9,8 +9,8 @@ import {   MedicalUpdateService } from "./medical.service";
     }
 
 
-//     export const calculateMedicalData=async (req:Request,res:Response) => {
-//     let result = await calculateMedicalDataCompleteness(req);
-//     res.json(result);
+    // export const calculateMedicalData=async (req:Request,res:Response) => {
+    // let result = await calculateMedicalDataCompleteness(req);
+    // res.json(result);
 
-//     }
+    // }
