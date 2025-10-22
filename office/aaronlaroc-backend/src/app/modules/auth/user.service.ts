@@ -548,3 +548,20 @@ export const updateUserService = async (req:Request) => {
     return {status: false, data: error};
   }
 }
+
+
+
+
+
+export const deleteUserService = async (req:Request) => {
+  try {
+       let user_id=req.params.id;
+
+
+        await User.deleteOne({_id: user_id})
+        return ({status: true ,message:"User deleted successfully"})
+
+  } catch (error) {
+    return {status: false, data: error};
+  }
+}
