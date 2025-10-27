@@ -63,7 +63,7 @@ const Navbar = () => {
 
     return (
      <header className="relative bg-white font-lora text-gray-800">
-  {/* top header */}
+     {/* top header */}
         <div className='hidden lg:block py-3'>
             <div className='blog-container flex items-center justify-between'>
                 <h1 className='flex-shrink-0'>
@@ -71,10 +71,11 @@ const Navbar = () => {
                     <FaBlog/>
                     <span className='ml-1'>Blogs</span>
                     </Link>
-
-
-                    
                 </h1>
+
+
+
+
 
                 {/* top header rignt side */}
                 <div className='flex items-center space-x-3'>
@@ -88,6 +89,9 @@ const Navbar = () => {
                             )
                         }
                     </div>
+
+
+
                     <button className='p-2 rounded-full text-gray-500 hover:text-primary cursor-pointer transition-colors focus:outline-none focus:ring-2 focus:ring-primary'>
                         {theme === 'light' ? <IoMdMoon size={18}/> : <IoMdSunny size={18}/>}
                     </button>
@@ -115,6 +119,7 @@ const Navbar = () => {
                     Contact
                     </Link>
 
+
                     <SignedOut>
                         <SignInButton mode='modal'>
                             <button className='px-5 py-2 border border-gray-300 bg-green-600 text-white rounded-md hover:bg-green-700 hover:text-white trasition-colors focus:outline-none focus:ring-2 focus:ring-primary cursor-pointer'>Sign In</button>
@@ -124,9 +129,22 @@ const Navbar = () => {
                         <UserButton/>
                     </SignedIn>
                    
+
+
+
                 </div>
             </div>
         </div>
+
+
+
+
+
+
+
+
+
+
 
         {/* main navigation */}
         <nav className='py-3 border-b border-gray-200'>
@@ -173,6 +191,24 @@ const Navbar = () => {
                     })}
                 </ul>
             </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            \
+            
 
             {/* mobile menu  */}
             {isMobileMenuOpen && (
