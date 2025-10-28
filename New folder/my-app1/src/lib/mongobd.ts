@@ -40,6 +40,10 @@ cached.promise = mongoose.connect(MONGODB_URL, {
 });
 
 
+cached.conn = await cached.promise;
+(globalThis as unknown as { mongoose: CachedMongoose }).mongoose=cached;
+return cached.conn;
+
 }
 
 
