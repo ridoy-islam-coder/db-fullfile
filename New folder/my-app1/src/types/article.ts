@@ -9,6 +9,7 @@ export interface ArticleMeta{
   readingTime: string;
   displaySection?: ArticledisplaySection;
   authorAvataUrl?: string;
+
 }   
 
 
@@ -19,6 +20,7 @@ export interface Article{
     image: string;
     excerpt?: string;
     caption: string;
-    meta:ArticleMeta
+    meta:ArticleMeta;
+    tags?: string[];
 
 }
