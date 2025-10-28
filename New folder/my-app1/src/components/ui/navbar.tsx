@@ -220,7 +220,7 @@ const Navbar = () => {
                     </div>
                     <ul className='flex flex-col p-4  space-y-2'>
                         {mainNavItems.map((item) => {
-                             const isActive = pathName === item.href;
+                             const isActive = pathname === item.href;
                             return (
                              <li key={item.label} className='group relative'>
                                 <Link href={item.href} className={`inline-flex items-center text-sm uppercase font-medium rounded-md text-gray-500 hover:text-primary ${isActive ? ' text-primary' : ""}`}>
