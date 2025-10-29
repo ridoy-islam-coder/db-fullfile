@@ -1,5 +1,5 @@
 import { Article, ArticleMeta } from "@/types/article";
-import { Document, Schema } from "mongoose";
+import mongoose, { Document, mongo, Schema } from "mongoose";
 
 
 export interface IArticle extends Omit<Article, "_id">,Document {
@@ -27,4 +27,5 @@ const ArticleSchema = new Schema<IArticle>({
 },{
     timestamps: true,versionKey:false
 });
-export default mongoose.models.Article || mongoose.model<IArticle>("Article", ArticleSchema);
+
+export  const ArticleModel=mongoose.model<IArticle>("Article",ArticleSchema);
