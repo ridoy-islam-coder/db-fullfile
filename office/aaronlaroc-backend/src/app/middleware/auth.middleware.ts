@@ -42,3 +42,13 @@ export const isAdmin = (req:AuthenticatedRequest, res:Response, next:NextFunctio
   }
     next();
 };
+
+
+
+
+export const isCorporate = (req: AuthenticatedRequest, res: Response, next: NextFunction) => {
+  if (req.user?.role !== "corporate") {
+    return res.status(403).json({ message: "Access denied. Corporate users only." });
+  }
+  next();
+};
