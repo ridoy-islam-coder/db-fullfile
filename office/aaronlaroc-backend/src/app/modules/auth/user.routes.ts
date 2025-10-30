@@ -96,4 +96,10 @@ router.get("/users/analysis", auth,isAdmin,UserAnalysisController.getAnalysis);
 
 
 
+
+
+
+
+
+
 export const userRoutes = router;
