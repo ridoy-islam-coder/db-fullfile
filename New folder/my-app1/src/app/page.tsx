@@ -1,12 +1,28 @@
+import { getHomePageData } from "@/lib/data";
 import Image from "next/image";
 
-export default function Home() {
+export default async function Home() {
+  const { articles } = await getHomePageData();
+
+const { editorPicksPrimary, editorPicksSecondary, trendingArticles, sliderArticles, gridArticles, mostRecentArticles, allMostRecentGridArticles, popularArticles } = articles;
+
+
+
+
+
+
   return ( 
-     <div>
-    <h1 className="bg-amber-50 font-bold">main div oky  </h1>
-
-     </div>
-
+     <div className="blog-container">
+      {
+        editorPicksPrimary && editorPicksSecondary.length> 0 && trendingArticles.length > 0 && (
+          <HomeContentSection
+          editorPicksPrimary={editorPicksPrimary}
+          editorPicksSecondary={editorPicksSecondary}
+          trendingArticles={trendingArticles}
+          />
+        )
+      }
+        </div>
 
   );
 }
