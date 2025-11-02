@@ -1,5 +1,8 @@
 import { getHomePageData } from "@/lib/data";
-import Image from "next/image";
+import HomeContentSection from "@/sections/Home/HomeContentSection";
+
+
+
 
 export default async function Home() {
   const { articles } = await getHomePageData();

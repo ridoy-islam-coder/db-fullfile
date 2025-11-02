@@ -1,6 +1,7 @@
-import { ArticleModel, IArticle } from "@/models/Article";
+
 import { connectToDB } from "./mongobd";
 import { separateArticlesBySection } from "./artilceUtils";
+import ArticleModel, { IArticle } from "@/models/Article";
 
 export interface SeparatedArticles {
     editorPicksPrimary?: IArticle;
