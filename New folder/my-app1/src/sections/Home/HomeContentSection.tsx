@@ -2,6 +2,9 @@ import SectionTitle from "@/components/ui/SectionTitle";
 import { IArticle } from "@/models/Article";
 import Link from "next/link";
 import { FaArrowRight } from "react-icons/fa";
+import ArticleCardPrimary from "./ArticleCardPrimary";
+import ArticleCardSecondary from "./ArticleCardSecondary";
+import TrendingArticleItem from "./TrendingArticleItem";
 
 interface HomeContentSectionProps {
     editorPicksPrimary?: IArticle;
