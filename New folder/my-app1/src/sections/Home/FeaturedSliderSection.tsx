@@ -10,8 +10,9 @@ import { Pagination, Autoplay } from 'swiper/modules';
 // Import Swiper styles
 import 'swiper/css';
 import 'swiper/css/pagination';
-import SwiperCard from './SwiperCard';
+
 import { IArticle } from '@/models/Article';
+import SwiperCard from './SwiperCard';
 
 
 
