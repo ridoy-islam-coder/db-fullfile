@@ -1,4 +1,5 @@
 import { getHomePageData } from "@/lib/data";
+import FeaturedSliderSection from "@/sections/Home/FeaturedSliderSection";
 import HomeContentSection from "@/sections/Home/HomeContentSection";
 
 
@@ -25,6 +26,9 @@ const { editorPicksPrimary, editorPicksSecondary, trendingArticles, sliderArticl
           />
         )
       }
+
+
+      <FeaturedSliderSection articles={sliderArticles} />
         </div>
 
   );
