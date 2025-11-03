@@ -28,7 +28,12 @@ const { editorPicksPrimary, editorPicksSecondary, trendingArticles, sliderArticl
       }
 
 
-      <FeaturedSliderSection articles={sliderArticles} />
+       {
+        sliderArticles.length > 0 && <FeaturedSliderSection articles={sliderArticles}/>
+      }
+
+
+
         </div>
 
   );
