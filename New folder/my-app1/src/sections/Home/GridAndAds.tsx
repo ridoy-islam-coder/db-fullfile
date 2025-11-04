@@ -1,6 +1,7 @@
 import { IArticle } from "@/models/Article"
 import Image from "next/image"
 import Link from "next/link"
+import ArticleCardGrid from "./ArticleCardGrid"
 
 interface GridAndAdsProps {
     articles: IArticle[]
