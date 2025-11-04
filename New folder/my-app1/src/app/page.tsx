@@ -32,7 +32,9 @@ const { editorPicksPrimary, editorPicksSecondary, trendingArticles, sliderArticl
         sliderArticles.length > 0 && <FeaturedSliderSection articles={sliderArticles}/>
       }
 
-
+       {
+        gridArticles.length > 0 && <GridAndAds articles={gridArticles}/>
+      } 
 
         </div>
 
