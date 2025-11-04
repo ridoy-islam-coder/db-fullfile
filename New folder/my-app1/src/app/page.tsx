@@ -1,5 +1,6 @@
 import { getHomePageData } from "@/lib/data";
 import FeaturedSliderSection from "@/sections/Home/FeaturedSliderSection";
+import GridAndAds from "@/sections/Home/GridAndAds";
 import HomeContentSection from "@/sections/Home/HomeContentSection";
 
 
