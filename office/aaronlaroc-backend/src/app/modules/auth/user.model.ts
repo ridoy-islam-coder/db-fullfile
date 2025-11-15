@@ -5,6 +5,7 @@ const userSchema =  new Schema<IUser>({
   firstName: {
     type: String,
   
+  
   },
   lastName: {
     type: String,
@@ -63,5 +64,15 @@ const userSchema =  new Schema<IUser>({
 }, {
     timestamps: true,versionKey:false
 })
+
+// // Virtual
+// userSchema.virtual('fullName').get(function () {
+//   return `${this.firstName || ""} ${this.lastName || ""}`.trim();
+// });
+
+// // Enable virtuals in JSON
+// userSchema.set("toJSON", { virtuals: true });
+// userSchema.set("toObject", { virtuals: true });
+
 
 export const User = model<IUser>("User", userSchema)
