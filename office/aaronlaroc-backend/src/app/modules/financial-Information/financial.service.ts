@@ -1,5 +1,6 @@
 
 import { User } from "../auth/user.model";
+import { MedicalModel } from "../medical-Information/medical.model";
 import { FinancialModel } from "./financial.model";
 import { Request } from "express";
 
@@ -137,49 +138,99 @@ export const FinancialUpdateService = async (req: Request) => {
 
 
 
-export const shareFinancialDataWithProxyset = async (userId: string) => {
+// export const shareFinancialDataWithProxyset = async (userId: string) => {
+//   try {
+
+//     const user = await User.findById(userId).select("proxysetId");
+
+//     if (!user) {
+//       return { status: "failed", message: "User not found" };
+//     }
+
+
+//     if (!user.proxysetId || user.proxysetId.length === 0) {
+//       return { status: "failed", message: "No proxyset users found" };
+//     }
+
+    
+//     const financialData = await FinancialModel.find({
+//       userID: { $in: user.proxysetId }, 
+//     });
+
+   
+//     if (financialData.length === 0) {
+//       return { status: "failed", message: "No financial data found" };
+//     }
+
+//     const proxysetUsers = await User.find({
+//       _id: { $in: user.proxysetId },
+//     });
+
+
+//     proxysetUsers.forEach((proxyUser) => {
+   
+//       console.log(`Shared financial data with ${proxyUser.email}`);
+//     });
+
+
+//     return { status: "success", data: financialData };
+//   } catch (error) {
+//     return {status:'failed', data: error};
+//   }
+// };
+
+
+
+
+
+
+export const shareUserDataWithProxyset = async (userId: string) => {
   try {
 
+    // ১. মূল user পাওয়া
     const user = await User.findById(userId).select("proxysetId");
-
     if (!user) {
       return { status: "failed", message: "User not found" };
     }
-
 
     if (!user.proxysetId || user.proxysetId.length === 0) {
       return { status: "failed", message: "No proxyset users found" };
     }
 
-    
+    // ২. Financial data fetch
     const financialData = await FinancialModel.find({
-      userID: { $in: user.proxysetId }, 
+      userID: { $in: user.proxysetId },
     });
 
-   
-    if (financialData.length === 0) {
-      return { status: "failed", message: "No financial data found" };
+    // ৩. Medical data fetch
+    const medicalData = await MedicalModel.find({
+      userID: { $in: user.proxysetId },
+    });
+
+    if (financialData.length === 0 && medicalData.length === 0) {
+      return { status: "failed", message: "No data found" };
     }
 
+    // ৪. Proxyset users info
     const proxysetUsers = await User.find({
       _id: { $in: user.proxysetId },
-    });
-
+    }).select("email firstName lastName");
 
     proxysetUsers.forEach((proxyUser) => {
-   
-      console.log(`Shared financial data with ${proxyUser.email}`);
+      console.log(`Shared data with ${proxyUser.email}`);
     });
 
+    // ৫. Return combined data
+    return {
+      status: "success",
+      financialData,
+      medicalData,
+      proxysetUsers
+    };
 
-    return { status: "success", data: financialData };
   } catch (error) {
-    return {status:'failed', data: error};
+    return { status: "failed", data: error };
   }
 };
-
-
-
-
 
 
