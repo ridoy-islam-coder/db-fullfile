@@ -16,18 +16,18 @@ export const ReportService = async (req: Request, res: Response) => {
         userID,
       });
      return ({status:"success",Message:"User Update successfully", data:newReport})
-      res.status(201).json({
-        success: true,
-        message: "Report created successfully",
-        data: newReport,
-      });
+    //   res.status(201).json({
+    //     success: true,
+    //     message: "Report created successfully",
+    //     data: newReport,
+    //   });
 
     } catch (error: any) {
         return {status:'failed', data: error};
-      res.status(500).json({
-        success: false,
-        message: "Failed to create report",
-        error: error.message,
-      });
-    }
+    //   res.status(500).json({
+    //     success: false,
+    //     message: "Failed to create report",
+    //     error: error.message,
+    //   });
+ }
   }
