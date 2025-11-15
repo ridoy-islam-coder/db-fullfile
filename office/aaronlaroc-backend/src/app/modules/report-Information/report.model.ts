@@ -2,12 +2,13 @@
 // for mongoose model
 
 import { model, Schema, Types } from 'mongoose'
+import { REPORT } from './report.interface';
 
 
 
 
 
-const financialSchema =  new Schema<FINANCIAL>({
+const financialSchema =  new Schema<REPORT>({
     problem: { type: String, required: true },
     details: { type: String, required: true },
     userID: { type: Types.ObjectId,   ref: 'User', required: true},
@@ -16,4 +17,4 @@ const financialSchema =  new Schema<FINANCIAL>({
     timestamps: true,versionKey: false
 })
 
-export const FinancialModel = model<FINANCIAL>("financial", financialSchema);
+export const ReportModel = model<REPORT>("report", financialSchema);
