@@ -30,4 +30,4 @@ router.post("/create-report",auth,ReportController)
 
 
 
-export const financialRoutes = router;
+export const ReportRoutes = router;
