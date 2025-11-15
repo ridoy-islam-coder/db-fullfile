@@ -40,7 +40,8 @@ const userSchema =  new Schema<IUser>({
   password: {
     type: String,
     required: true,
-    minlength: 6 // You can adjust the minimum password length as needed
+    minlength: 6, // You can adjust the minimum password length as needed
+   
   },
   phoneNumber: {
     type: String,
