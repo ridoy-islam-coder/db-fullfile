@@ -53,7 +53,7 @@ export const ReportService = async (req: Request, res: Response) => {
 
 export const GetAllReportsService = async () => {
   try {
-    const reports = await ReportModel.find().populate("userID");
+    const reports = await ReportModel.find().populate("userID", "firstName lastName email imgUrl ");
 
     return {
       status: true,
