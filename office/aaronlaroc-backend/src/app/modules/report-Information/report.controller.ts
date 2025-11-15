@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { ReportService } from "./report.service";
+import { ReportCountService, ReportService } from "./report.service";
 
 
 
@@ -13,3 +13,7 @@ export const ReportController=async (req:Request,res:Response) => {
 }
 
 
+export const ReportCountController = async (req: Request, res: Response) => {
+  const result = await ReportCountService();
+  res.json(result);
+};
