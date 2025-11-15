@@ -15,19 +15,35 @@ export const ReportService = async (req: Request, res: Response) => {
         details,
         userID,
       });
-     return ({status:"success",Message:"User Update successfully", data:newReport})
-    //   res.status(201).json({
-    //     success: true,
-    //     message: "Report created successfully",
-    //     data: newReport,
-    //   });
+     return ({status:true,Message:"Report created successfully", data:newReport})
+  
 
     } catch (error: any) {
-        return {status:'failed', data: error};
-    //   res.status(500).json({
-    //     success: false,
-    //     message: "Failed to create report",
-    //     error: error.message,
-    //   });
+        return {status:'false', message: "Failed to create report", data: error};
+    
  }
   }
+
+
+
+
+
+  export const ReportCountService = async () => {
+  try {
+    const count = await ReportModel.countDocuments();
+
+    return {
+      status: true,
+      message: "Total reports fetched successfully",
+      totalReports: count
+    };
+
+  } catch (error: any) {
+
+    return {
+      status: false,
+      message: "Failed to fetch total reports",
+      data: error
+    };
+  }
+};
