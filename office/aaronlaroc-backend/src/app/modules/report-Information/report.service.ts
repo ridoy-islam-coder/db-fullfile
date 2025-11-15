@@ -47,3 +47,26 @@ export const ReportService = async (req: Request, res: Response) => {
     };
   }
 };
+
+
+
+
+export const GetAllReportsService = async () => {
+  try {
+    const reports = await ReportModel.find().populate("userID");
+
+    return {
+      status: true,
+      message: "All reports fetched successfully",
+      data: reports
+    };
+
+  } catch (error: any) {
+
+    return {
+      status: false,
+      message: "Failed to fetch reports",
+      data: error
+    };
+  }
+};
