@@ -61,6 +61,31 @@ export const loginUser = async (req:Request, res:Response, next:NextFunction) =>
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 export const GetProfileData=async (req:Request,res:Response) => {
   
     let result = await getprofileService(req);

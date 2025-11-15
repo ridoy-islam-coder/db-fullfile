@@ -43,9 +43,13 @@ declare global {
 export const LoginInUser = async (email: string, password: string) => {
     // Check if user exists
     const user = await User.findOne({ email });
+
     if (!user) {
         throw new Error("User not found");
     }
+
+  
+
 
 // Check password
     const isMatch = await bcrypt.compare(password, user.password);
