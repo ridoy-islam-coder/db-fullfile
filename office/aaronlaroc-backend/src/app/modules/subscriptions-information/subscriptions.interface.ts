@@ -1,13 +1,39 @@
 
 import { Types } from "mongoose";
-import { IUser } from "../auth/user.interface";
 
 
 
-export interface ISubscriptions extends Document {
-  userID: IUser | Types.ObjectId;
-  socialMedia?: string;       // Social media info/link
-  website?: string;   
-  socialInfoPercentage:number; // Social information completeness percentage
-  streamingService?: string;  // Streaming service name
+
+
+
+export interface ISubscriptions {
+  _id?: Types.ObjectId;
+
+  userID: Types.ObjectId;
+
+  stripeCustomerId: string;
+
+  stripeSubscriptionId: string;
+
+  stripePriceId: string;
+
+  planName: string;
+
+  amount: number;
+
+  interval: "month" | "year";
+
+  status:
+    | "active"
+    | "canceled"
+    | "incomplete"
+    | "past_due"
+    | "unpaid"
+    | "trialing";
+
+  currentPeriodStart?: Date;
+  currentPeriodEnd?: Date;
+
+  createdAt?: Date;
+  updatedAt?: Date;
 }
