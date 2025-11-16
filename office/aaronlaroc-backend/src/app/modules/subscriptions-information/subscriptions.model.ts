@@ -54,3 +54,25 @@ const subscriptionsSchema = new Schema<ISubscriptions>(
 );
 
 export const subscriptionsModel = model<ISubscriptions>("subscriptions", subscriptionsSchema);
+
+
+
+
+
+//postment diya ai vaba requst dita hoba okay?
+
+// {
+//   "userID": "USER_ID_HERE",
+//   "priceId": "PRICE_ID_FROM_STRIPE",
+//   "planName": "Premium"
+// }
+
+
+
+// sob kacu thik thakla ai ta response asba ok ay?
+
+// {
+//   "message": "Subscription created successfully",
+//   "clientSecret": "pi_...",
+//   "subscriptionId": "sub_..."
+// }
