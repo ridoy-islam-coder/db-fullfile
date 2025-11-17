@@ -1,0 +1,7 @@
+echo ".env
+node_modules/
+dist/
+build/
+*.log
+.vscode/
+.idea/" > .gitignore
