@@ -6,4 +6,4 @@ const router = Router();
 // create subscription
 router.post("/create", createSubscription);
 
-export default router;
+export const subscriptionRoutes = router;
