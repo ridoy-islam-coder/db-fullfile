@@ -2,10 +2,11 @@ import { Request, Response } from "express";
 import { User } from "../auth/user.model";
 import Stripe from "stripe";
 import { subscriptionsModel } from "./subscriptions.model";
+import { config } from "../../config";
 
 
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string);
+const stripe = new Stripe(config.STRIPE_SECRET_KEY as string);
 export const createSubscription = async (req: Request, res: Response) => {
   try {
     const { userID, priceId, planName } = req.body;
