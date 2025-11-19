@@ -86,114 +86,19 @@
 
 
 
+// const stripe = new Stripe(config.STRIPE_SECRET_KEY as string);
 
+// export const createSubscription = async (req: Request, res: Response) => {
 
-import { Request, Response } from "express";
-import Stripe from "stripe";
-import { User } from "../auth/user.model";
-import { subscriptionsModel } from "./subscriptions.model";
-import { config } from './../../config/index';
+//      const {product}=req.body;
+//      console.log(product);
+//        // 2️⃣ Stripe Subscription Create
+//     const subscription = await stripe.subscriptions.create({
+//       customer: customer.id,
+//       items: [{ price: priceId }],
+//       payment_behavior: "default_incomplete",
+//       expand: ["latest_invoice.payment_intent"],
+//     }) as any;
 
-const stripe = new Stripe(config.STRIPE_SECRET_KEY as string);
-
-export const createSubscription = async (req: Request, res: Response) => {
-  try {
-    const { userID, priceId, planName } = req.body;
-
-    const user = await User.findById(userID);
-    if (!user) return res.status(404).json({ message: "User not found" });
-
-    // 1. Create Stripe Customer
-    const customer = await stripe.customers.create({
-      email: user.email,
-    });
-
-    // 2. Create Subscription with Payment Intent
-    const subscription = await stripe.subscriptions.create({
-      customer: customer.id,
-      items: [{ price: priceId }],
-      payment_behavior: "default_incomplete",
-      expand: ["latest_invoice.payment_intent"],
-    }) as any;
-
-    // 3. Payment Intent পাওয়া গেল কিনা চেক করো
-    const invoice = subscription.latest_invoice as any;
-
-    if (!invoice || !invoice.payment_intent) {
-      return res.status(400).json({
-        message: "No payment intent returned by Stripe",
-      });
-    }
-
-    const paymentIntent = invoice.payment_intent;
-
-    // 4. Save DB
-    await subscriptionsModel.create({
-      userID,
-      stripeCustomerId: customer.id,
-      stripeSubscriptionId: subscription.id,
-      stripePriceId: priceId,
-      planName,
-      amount: paymentIntent.amount,
-      interval: "month",
-      status: subscription.status,
-      currentPeriodStart: subscription.current_period_start
-        ? new Date(subscription.current_period_start * 1000)
-        : undefined,
-      currentPeriodEnd: subscription.current_period_end
-        ? new Date(subscription.current_period_end * 1000)
-        : undefined,
-    });
-
-    // 5. Send secret to frontend
-    res.json({
-      subscriptionId: subscription.id,
-      clientSecret: paymentIntent.client_secret,
-    });
-  } catch (error: any) {
-    console.error("Stripe Subscription Error:", error);
-    res.status(500).json({ error: error.message });
-  }
-};
-
-
-
-
-
-
-
-
-
-
-
-
-
-export const stripeWebhook = async (req: Request, res: Response) => {
-  let event = req.body;
-
-  try {
-    switch (event.type) {
-      case "invoice.payment_succeeded":
-        const invoice = event.data.object;
-
-        await subscriptionsModel.findOneAndUpdate(
-          { stripeSubscriptionId: invoice.subscription },
-          { status: "active" }
-        );
-
-        break;
-
-      case "customer.subscription.deleted":
-        await subscriptionsModel.findOneAndUpdate(
-          { stripeSubscriptionId: event.data.object.id },
-          { status: "canceled" }
-        );
-        break;
-    }
-
-    res.json({ received: true });
-
-  } catch (err: any) {
-    res.status(400).send(`Webhook error: ${err.message}`);
-  }
-};
+   
+// }
