@@ -1,4 +1,4 @@
-import express from 'express';
+import express, { Request, Response } from 'express';
 import cors from 'cors';
 import helmet from 'helmet';
 import rateLimit from 'express-rate-limit';
@@ -43,10 +43,14 @@ app.use("/api/v1",PaymentCardRoutes)
 
 
 
-app.get('/', (req, res) => {
-  res.send('backen server is oky !')
-})
-
+// Example route
+app.get("/", async (req: Request, res: Response) => {
+  try {
+    res.send("Hello from Vercel + MongoDB!");
+  } catch (err) {
+    res.status(500).send("Server Error");
+  }
+});
 
 
 
