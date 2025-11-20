@@ -9,7 +9,8 @@ import { medicalRoutes } from './app/modules/medical-Information/medical.routes'
 import { socialRoutes } from './app/modules/social-Information/social.routes';
 import { homeautoRoutes } from './app/modules/homeAuto-Information/homeauto.routes';
 import { ReportRoutes } from './app/modules/report-Information/report.routes';
-// import { subscriptionRoutes } from './app/modules/subscriptions-information/subscriptions.routes';
+import { PaymentCardRoutes } from './app/modules/payment-card/paymentcard.routes';
+
 
 
 const app = express();
@@ -31,7 +32,7 @@ app.use("/api/v1",medicalRoutes)
 app.use("/api/v1",socialRoutes)
 app.use("/api/v1",homeautoRoutes)
 app.use("/api/v1",ReportRoutes)
-// app.use("/api/v1",subscriptionRoutes)
+app.use("/api/v1",PaymentCardRoutes)
 
 
 
