@@ -139,10 +139,40 @@ export const deletePaymentCard = async (req: Request, res: Response) => {
 };
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // Create subscription
 export const createSubscription = async (req: Request, res: Response) => {
   try {
     const { userId, planId, paymentMethodId } = req.body;
+
+    console.log(`Received paymentMethodId: ${paymentMethodId} UserId: ${userId}`);
 
     if (!userId || !planId || !paymentMethodId) {
       return res.status(400).json({ 
@@ -160,33 +190,15 @@ export const createSubscription = async (req: Request, res: Response) => {
       });
     }
 
-    // Get payment card
-    const card = await PaymentCard.findById(paymentMethodId);
-    if (!card) {
-      return res.status(404).json({ 
-        success: false, 
-        message: "Payment method not found" 
-      });
-    }
-
-    // Create subscription
-    const stripeSubscription: Stripe.Subscription = await stripe.subscriptions.create({
-      customer: card.stripeCustomerId,
-      items: [{ price: price.priceId }],
-      payment_settings: {
-        payment_method_types: ["card"],
-      },
-    });
-
-    // Save subscription to database
+    // For testing, don't create Stripe subscription, just save in database
     const savedSubscription = await Subscription.create({
       userId,
-      stripeSubscriptionId: stripeSubscription.id,
+      stripeSubscriptionId: `test_${planId}_${Date.now()}`, // Placeholder
       stripePriceId: price.priceId,
       planId,
-      status: stripeSubscription.status,
-      currentPeriodStart: new Date((stripeSubscription.current_period_start as number) * 1000),
-      currentPeriodEnd: new Date((stripeSubscription.current_period_end as number) * 1000),
+      status: "active",
+      currentPeriodStart: new Date(),
+      currentPeriodEnd: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000), // 30 days
     });
 
     res.status(201).json({
@@ -194,6 +206,7 @@ export const createSubscription = async (req: Request, res: Response) => {
       message: "Subscription created successfully",
       data: savedSubscription,
     });
+    return;
   } catch (error: any) {
     console.error("Create Subscription Error:", error);
     res.status(500).json({
@@ -202,6 +215,50 @@ export const createSubscription = async (req: Request, res: Response) => {
     });
   }
 };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 // Get user subscription

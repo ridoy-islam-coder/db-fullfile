@@ -12,7 +12,7 @@ import { config } from "./app/config";
 
 }
 
-main().then(() => console.log("Mongobd connected successfull !")).catch((error) => {
+main().then(() => console.log("MongoDB connected successfully!")).catch((error) => {
 
   console.error("Error connecting to the database:", error);
 
