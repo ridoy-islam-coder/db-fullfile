@@ -14,6 +14,7 @@ export interface IUser extends Document {
     imgUrl: string;
     otp:string;
     role: Role;
+    is_subscription: boolean;
     createdAt: Date;
     updatedAt: Date;
     

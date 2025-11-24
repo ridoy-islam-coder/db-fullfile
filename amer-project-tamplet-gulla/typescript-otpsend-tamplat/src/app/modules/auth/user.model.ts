@@ -35,6 +35,8 @@ const userSchema =  new Schema<IUser>({
         enum: Object.values(Role),
         default: Role.USER
     },
+   
+   is_subscription: { type: Boolean, default: false},
 }, {
     timestamps: true
 })
