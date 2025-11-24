@@ -6,6 +6,7 @@ import { bookRoutes } from './app/modules/book/routes';
 import { userRoutes } from './app/modules/auth/user.routes';
 import errorHandler from './app/middleware/errorHandler';
 import { config } from './app/config';
+import { subscriptionsRoutes } from './app/modules/subscriptions-information/subscriptions.routes';
 
 const app = express();
 
@@ -30,6 +31,7 @@ app.set('etag', config.WEB_CACHE === 'true');
 //routes
 app.use("/api/v1",bookRoutes)
 app.use("/api/v1",userRoutes)
+app.use("/api/v1",subscriptionsRoutes)
 
 
 
