@@ -1,7 +1,7 @@
 import express from "express";
 
 import { auth } from "../../middleware/auth.middleware";
-import { creatsubscriptionplan, getsubscriptionplan } from "./subscription.controller";
+import { addpalndatails, creatsubscriptionplan, getsubscriptionplan } from "./subscription.controller";
 
 
 
@@ -13,7 +13,12 @@ const router = express.Router();
 router.post("/add-plan",creatsubscriptionplan)
 
 // get-plan
-router.get("/get-plan",getsubscriptionplan)
+router.get("/get-plan",auth,getsubscriptionplan)
+
+
+
+// add-plan
+router.post("/plan-details",auth,addpalndatails)
 
 
 

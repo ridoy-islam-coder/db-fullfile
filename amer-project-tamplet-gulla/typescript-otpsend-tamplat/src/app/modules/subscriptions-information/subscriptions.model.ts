@@ -1,7 +1,7 @@
 import mongoose, { Schema, type Document } from "mongoose"
 
 export interface IPayment extends Document {
-  userId: mongoose.Types.ObjectId
+  user_id: mongoose.Types.ObjectId
   customer_id: string
   card_id: string
   name: string
@@ -31,7 +31,7 @@ export interface IPlan extends Document {
 
 
 export interface ISubscription extends Document {
-  userId: mongoose.Types.ObjectId
+  user_id: mongoose.Types.ObjectId
   stripe_Subscription_id: string
   stripe_Subscription_schedule_id: string
   stripe_customer_id: string
@@ -53,7 +53,7 @@ export interface ISubscription extends Document {
 
 
 export interface IPanding extends Document {
-  userId: mongoose.Types.ObjectId
+  user_id: mongoose.Types.ObjectId
   customer_id: string
   card_id: string
   charge_id: string
@@ -68,7 +68,7 @@ export interface IPanding extends Document {
 
 const subscriptionSchema = new Schema<ISubscription>(
   {
-    userId: {
+    user_id: {
       type: Schema.Types.ObjectId,
       ref: "User",
    
@@ -181,7 +181,7 @@ const subscriptionplanMoSchema = new Schema<IPlan>(
 
 const cardDetailSchema = new Schema<IPayment>(
   {
-    userId: {
+    user_id: {
       type: Schema.Types.ObjectId,
       ref: "User",
       required: true,
@@ -226,7 +226,7 @@ const cardDetailSchema = new Schema<IPayment>(
 const pandingFeesModelSchema = new Schema<IPanding>(
   {
   
-    userId: {
+    user_id: {
       type: Schema.Types.ObjectId,
       ref: "User",
    
