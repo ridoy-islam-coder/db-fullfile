@@ -1,7 +1,7 @@
 import express from "express";
 
 import { auth } from "../../middleware/auth.middleware";
-import { creatsubscriptionplan } from "./subscription.controller";
+import { creatsubscriptionplan, getsubscriptionplan } from "./subscription.controller";
 
 
 
@@ -9,8 +9,11 @@ import { creatsubscriptionplan } from "./subscription.controller";
 
 const router = express.Router();
 
-// User registration
+// add-plan
 router.post("/add-plan",creatsubscriptionplan)
+
+// get-plan
+router.get("/get-plan",getsubscriptionplan)
 
 
 
